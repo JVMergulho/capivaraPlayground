@@ -20,7 +20,7 @@ struct MapView: View {
                         .resizable()
                         .scaledToFit()
                     
-                    ForEach(Site.allCases) { site in
+                    ForEach(Sites) { site in
                         Button(action: {
                             selectedSite = site
                         }, label: {
@@ -51,5 +51,5 @@ struct MapView: View {
 }
 
 #Preview {
-    MapView(selectedSite: .constant(.paraguaio))
+    MapView(selectedSite: .constant(Sites[0]))
 }

@@ -8,43 +8,18 @@
 import SwiftUI
 
 // Archeology Site
-enum Site: CaseIterable, Identifiable{
-    case extrema
-    case furada
-    case paraguaio
+
+struct Site: Hashable, Identifiable{
     
-    var id: Self { self }
+    var id = UUID()
     
-    var name: String {
-        switch self {
-        case .extrema:
-            return "Toca da Extrema II"
-        case .furada:
-            return "Pedra Furada"
-        case .paraguaio:
-            return "Toca do Paraguaio"
-        }
-    }
-    
-    var painting: String {
-        switch self {
-        case .extrema:
-            return "painting1"
-        case .furada:
-            return "painting1"
-        case .paraguaio:
-            return "painting2"
-        }
-    }
-    
-    var location: CGPoint {
-        switch self {
-        case .extrema:
-            return CGPoint(x: 0.13, y: 0.41)
-        case .furada:
-            return CGPoint(x: 0.42, y: 0.68)
-        case .paraguaio:
-            return CGPoint(x: 0.71, y: 0.64)
-        }
-    }
+    let name: String
+    let painting: String
+    let location: CGPoint
 }
+
+let Sites: [Site] = [
+    Site(name: "Toca do Vento", painting: "painting1", location: CGPoint(x: 0.13, y: 0.41)),
+    Site(name: "Pedra Furada", painting: "painting1", location: CGPoint(x: 0.42, y: 0.68)),
+    Site(name: "Toca do Paraguaio", painting: "painting2", location: CGPoint(x: 0.71, y: 0.64))
+]
