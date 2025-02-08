@@ -8,26 +8,19 @@
 import SwiftUI
 
 struct ARSiteView: View {
-    @StateObject private var coordinator = Coordinator()
+    @StateObject private var coordinator = ARCoordinator()
     let selectedSite: Site
     
     var body: some View {
         ZStack {
-            ARViewContainer(showButton: $coordinator.showButton, coordinator: coordinator)
+            ARViewContainer(coordinator: coordinator)
                 .edgesIgnoringSafeArea(.all)
             
             VStack{
                 Spacer()
-                
-                if coordinator.showButton {
-                    Button(action: {
+                if coordinator.showButton{
+                    RedButton(title: "Place Painting", disabled: !coordinator.enableButton){
                         coordinator.addPainting(painting: selectedSite.painting)
-                    }) {
-                        Text("Place Painting")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
                     }
                 }
             }

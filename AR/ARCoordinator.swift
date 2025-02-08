@@ -1,70 +1,43 @@
 //
-//  ARViewContainer.swift
-//  capivara
+//  ARCoordinator.swift
+//  capivARa
 //
-//  Created by João Vitor Lima Mergulhão on 03/02/25.
+//  Created by João Vitor Lima Mergulhão on 08/02/25.
 //
-
 import SwiftUI
 import ARKit
 import RealityKit
 import UIKit
 
-struct ARViewContainer: UIViewRepresentable {
-    @Binding var showButton: Bool
-    @ObservedObject var coordinator: Coordinator
-    
-    func makeUIView(context: Context) -> ARView {
-        let arView = ARView(frame: .zero, cameraMode: .ar, automaticallyConfigureSession: false)
-        arView.session.delegate = coordinator
-        
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.vertical, .horizontal]
-        arView.session.run(configuration)
-        
-        let coachingOverlay = ARCoachingOverlayView()
-        coachingOverlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        coachingOverlay.session = arView.session
-        coachingOverlay.translatesAutoresizingMaskIntoConstraints = false
-        coachingOverlay.goal = .anyPlane
-        coachingOverlay.delegate = coordinator
-        arView.addSubview(coachingOverlay)
-        
-        NSLayoutConstraint.activate([
-            coachingOverlay.centerXAnchor.constraint(equalTo: arView.centerXAnchor),
-            coachingOverlay.centerYAnchor.constraint(equalTo: arView.centerYAnchor),
-            coachingOverlay.widthAnchor.constraint(equalTo: arView.widthAnchor),
-            coachingOverlay.heightAnchor.constraint(equalTo: arView.heightAnchor)
-        ])
-        
-        coordinator.arView = arView
-        // addPlaneIndicator(to: arView)
-        
-        //arView.debugOptions = .showAnchorGeometry
-        
-        return arView
-    }
-    
-    func updateUIView(_ uiView: ARView, context: Context) {
-        DispatchQueue.main.async {
-            // check if the painting was already placed
-            if !coordinator.paintingWasPlaced{
-                self.showButton = true
-            }
-        }
-    }
-}
-
-class Coordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrency ARCoachingOverlayViewDelegate, ObservableObject {
+class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrency ARCoachingOverlayViewDelegate, ObservableObject {
     var arView: ARView?
-    @Published var showButton: Bool = false
+    @Published var enableButton: Bool = false
+    @Published var showButton: Bool = true
     @Published var paintingWasPlaced: Bool = false
     
     var focusIndicator: ModelEntity?
     
+    @MainActor func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        // only show focus indicator before the painting was placed
+        if !paintingWasPlaced{
+            updateFocusIndicator()
+            
+            if let focusIndicator = focusIndicator{
+                self.enableButton = focusIndicator.isEnabled
+            }
+        } else {
+            showButton = false
+        }
+    }
+    
+    @MainActor func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+//        arView?.addGestureRecognizer(tapGesture)
+        setupFocusIndicator()
+    }
+    
     @MainActor func setupFocusIndicator() {
         let planeMesh = MeshResource.generatePlane(width: 0.3, depth: 0.3)
-        //let planeMaterial = SimpleMaterial(color: .yellow, isMetallic: false)
     
         guard let texture = imageToTexture(named: "target") else {
             print("Failed to create texture")
@@ -107,14 +80,9 @@ class Coordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrency 
         }
     }
     
-    @MainActor func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        updateFocusIndicator()
-    }
-    
-    @MainActor func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        arView?.addGestureRecognizer(tapGesture)
-        setupFocusIndicator()
+    @MainActor func disableFocus(){
+        print("focusIndicator disbled")
+        focusIndicator?.isEnabled = false
     }
     
     @MainActor @objc func handleTap(_ recognizer: UITapGestureRecognizer) {
@@ -152,18 +120,9 @@ class Coordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrency 
         arView.scene.addAnchor(anchor)
     }
 
-    
     @MainActor
     func addPainting(painting: String) {
-        guard let arView = arView else { return }
-    
-//        guard let image = UIImage(named: painting) else {
-//            print("Painting image not found")
-//            return
-//        }
-//        guard let imageURL = imageToURL(image: image) else { return }
-    
-        //let texture = try! TextureResource.load(contentsOf: imageURL)
+        guard let arView, let focusIndicator else { return }
         
         guard let texture = imageToTexture(named: painting) else { return }
         
@@ -177,23 +136,18 @@ class Coordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrency 
     
         let planeEntity = ModelEntity(mesh: planeMesh, materials: [material])
     
-        let anchor = AnchorEntity(world: SIMD3<Float>(0, 0, 0))
+        let anchor = AnchorEntity(world: focusIndicator.position)
         anchor.addChild(planeEntity)
     
         // Align plane with FocusEntity orientation
-        // planeEntity.transform.rotation = focusEntity.transform.rotation
+        planeEntity.transform.rotation = focusIndicator.transform.rotation
     
         arView.scene.addAnchor(anchor)
     
         DispatchQueue.main.async {
-            self.showButton = false
+            self.enableButton = false
             self.paintingWasPlaced = true
+            self.disableFocus()
         }
-    }
-}
-
-extension simd_float4x4 {
-    var translation: SIMD3<Float> {
-        return SIMD3(x: columns.3.x, y: columns.3.y, z: columns.3.z)
     }
 }

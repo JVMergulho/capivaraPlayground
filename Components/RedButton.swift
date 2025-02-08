@@ -7,9 +7,16 @@
 
 import SwiftUI
 
-struct MenuButton: View {
+struct RedButton: View {
     let title: String
+    let disabled: Bool
     let buttonAction: () -> ()
+    
+    init(title: String, disabled: Bool = false, buttonAction: @escaping () -> Void) {
+        self.title = title
+        self.disabled = disabled
+        self.buttonAction = buttonAction
+    }
     
     var body: some View {
         Button(action:{
@@ -19,8 +26,9 @@ struct MenuButton: View {
                 .font(.system(size: 20, weight: .medium))
                 .foregroundStyle(.white)
                 .frame(width: 180, height: 60)
-                .background(Color.redTitle)
+                .background(disabled ? Color.redDisabled : Color.redTitle)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
         }
+        .disabled(disabled)
     }
 }
