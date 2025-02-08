@@ -22,6 +22,7 @@ struct ARViewContainer: UIViewRepresentable {
         arView.session.run(configuration)
         
         let coachingOverlay = ARCoachingOverlayView()
+        coachingOverlay.setActive(true, animated: true)
         coachingOverlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         coachingOverlay.session = arView.session
         coachingOverlay.translatesAutoresizingMaskIntoConstraints = false

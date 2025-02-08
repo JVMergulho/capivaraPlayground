@@ -22,9 +22,10 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
     @MainActor func session(_ session: ARSession, didUpdate frame: ARFrame) {
         // only show focus indicator before the painting was placed
         if !paintingWasPlaced{
+            
             updateFocusIndicator()
             
-            if let focusIndicator = focusIndicator{
+            if let focusIndicator{
                 self.enableButton = focusIndicator.isEnabled
             }
         } else {
@@ -46,6 +47,10 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
 //        arView?.addGestureRecognizer(tapGesture)
         overlayActivated = false
+        
+        if let focusIndicator{
+            focusIndicator.anchor?.removeChild(focusIndicator)
+        }
         
         setupFocusIndicator()
     }
@@ -80,18 +85,23 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
         let viewportCenter = CGPoint(x: arView.bounds.midX, y: arView.bounds.midY)
         let raycastResults = arView.raycast(from: viewportCenter, allowing: .estimatedPlane, alignment: .any)
 
-        if let result = raycastResults.first {
-            let worldPos = result.worldTransform.translation
-            let worldRotation = simd_quatf(result.worldTransform) // Ajusta orientação
-
-            // Atualiza posição e orientação do indicador
-            focusIndicator.position = worldPos
-            focusIndicator.orientation = worldRotation
-            focusIndicator.isEnabled = true
-        } else {
-            // Oculta o indicador se não houver plano detectado
+        if overlayActivated{
             focusIndicator.isEnabled = false
+        } else {
+            if let result = raycastResults.first {
+                let worldPos = result.worldTransform.translation
+                let worldRotation = simd_quatf(result.worldTransform) // Ajusta orientação
+
+                // Atualiza posição e orientação do indicador
+                focusIndicator.position = worldPos
+                focusIndicator.orientation = worldRotation
+                focusIndicator.isEnabled = true
+            } else {
+                // Oculta o indicador se não houver plano detectado
+                focusIndicator.isEnabled = false
+            }
         }
+        
     }
     
     @MainActor func disableFocus(){
