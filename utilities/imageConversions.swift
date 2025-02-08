@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealityKit
 
 func imageToURL(image: UIImage) -> URL? {
     // Salvar a imagem em um arquivo temporário
@@ -24,4 +25,16 @@ func imageToURL(image: UIImage) -> URL? {
         print("Erro ao salvar imagem: \(error)")
         return nil
     }
+}
+
+@MainActor func imageToTexture(named name: String) -> TextureResource?{
+    guard let image = UIImage(named: name) else {
+        print("image not found")
+        return nil
+    }
+    guard let imageURL = imageToURL(image: image) else { return nil}
+
+    let texture = try! TextureResource.load(contentsOf: imageURL)
+    
+    return texture
 }

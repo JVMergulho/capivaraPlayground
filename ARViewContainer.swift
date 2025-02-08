@@ -63,8 +63,20 @@ class Coordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrency 
     var focusIndicator: ModelEntity?
     
     @MainActor func setupFocusIndicator() {
-        let planeMesh = MeshResource.generatePlane(width: 0.1, depth: 0.1)
-        let planeMaterial = SimpleMaterial(color: .yellow, isMetallic: false)
+        let planeMesh = MeshResource.generatePlane(width: 0.3, depth: 0.3)
+        //let planeMaterial = SimpleMaterial(color: .yellow, isMetallic: false)
+    
+        guard let texture = imageToTexture(named: "target") else {
+            print("Failed to create texture")
+            return
+        }
+        
+        let baseColor = MaterialParameters.Texture(texture)
+    
+        var planeMaterial = UnlitMaterial()
+        planeMaterial.color = SimpleMaterial.BaseColor(tint: .white, texture: baseColor)
+        planeMaterial.blending = .transparent(opacity: 1.0)
+        
         focusIndicator = ModelEntity(mesh: planeMesh, materials: [planeMaterial])
         focusIndicator?.isEnabled = false
         
@@ -145,13 +157,16 @@ class Coordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrency 
     func addPainting(painting: String) {
         guard let arView = arView else { return }
     
-        guard let image = UIImage(named: painting) else {
-            print("Painting image not found")
-            return
-        }
-        guard let imageURL = imageToURL(image: image) else { return }
+//        guard let image = UIImage(named: painting) else {
+//            print("Painting image not found")
+//            return
+//        }
+//        guard let imageURL = imageToURL(image: image) else { return }
     
-        let texture = try! TextureResource.load(contentsOf: imageURL)
+        //let texture = try! TextureResource.load(contentsOf: imageURL)
+        
+        guard let texture = imageToTexture(named: painting) else { return }
+        
         let planeMesh = MeshResource.generatePlane(width: 0.5, depth: 0.5)
     
         let baseColor = MaterialParameters.Texture(texture)
