@@ -25,6 +25,12 @@ struct ARSiteView: View {
                 }
             }
             .padding(.bottom, 24)
+            
+            if coordinator.showFocusSquare{
+                Image(.focusSquare)
+                    .resizable()
+                    .frame(width: 120, height: 120)
+            }
         }
     }
 }

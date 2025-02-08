@@ -14,6 +14,8 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
     @Published var enableButton: Bool = false
     @Published var showButton: Bool = true
     @Published var paintingWasPlaced: Bool = false
+    @Published var showFocusSquare: Bool = false
+    var overlayActivated: Bool = false
     
     var focusIndicator: ModelEntity?
     
@@ -28,11 +30,23 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
         } else {
             showButton = false
         }
+        
+        if !enableButton && !overlayActivated && !paintingWasPlaced{
+            showFocusSquare = true
+        } else {
+            showFocusSquare = false
+        }
+    }
+    
+    @MainActor func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        overlayActivated = true
     }
     
     @MainActor func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
 //        arView?.addGestureRecognizer(tapGesture)
+        overlayActivated = false
+        
         setupFocusIndicator()
     }
     
