@@ -19,22 +19,29 @@ struct ParkView: View {
                 Color.mapBg
                     .ignoresSafeArea()
                 
-                VStack{
-                    Image(.titleCapivara)
-                        .resizable()
-                        .scaledToFit()
-                        .padding(.horizontal, 40)
-                    
-                    Spacer()
-                    
-                    Image(.caveTexture)
-                        .resizable()
-                        .scaledToFit()
-                }
+                Image(.caveTexture)
+                    .resizable()
+                    .scaledToFit()
                 
                 VStack{
+                    
+                    HStack{
+                        Spacer()
+                        
+                        Button(action: {
+                            path.append(Page.timeline)
+                        }){
+                            Image("bookIcon")
+                        }
+                        .padding(.trailing, 20)
+                    }
+                    
+                    ParkBoardView()
+                    
                     MapView(selectedSite: $selectedSite)
                         .padding()
+                    
+                    Spacer()
                 }
             }
             .onChange(of: selectedSite){
@@ -44,15 +51,6 @@ struct ParkView: View {
                     
                     // reset site
                     selectedSite = nil
-                }
-            }
-            .toolbar(){
-                Button(action: {
-                    path.append(Page.timeline)
-                }){
-                    Image(systemName: "book.pages.fill")
-                        .font(.system(size: 24))
-                        .foregroundStyle(Color.redTitle)
                 }
             }
         }

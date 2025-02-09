@@ -40,7 +40,6 @@ struct MenuView: View {
                         .padding(.horizontal, 40)
                         .frame(width: screenWidth)
                         
-                    
                     Spacer()
                     
                     RedButton(title: "Enter Park"){

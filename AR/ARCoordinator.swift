@@ -9,7 +9,10 @@ import ARKit
 import RealityKit
 import UIKit
 
+//TODO: Bug fix - when the coaching doesnt appear nothing works
+
 class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrency ARCoachingOverlayViewDelegate, ObservableObject {
+    
     var arView: ARView?
     @Published var enableButton: Bool = false
     @Published var showButton: Bool = true
@@ -122,19 +125,28 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
             print("Coordenada 3D do toque: \(worldPos)")
 
             // Adiciona o plano com a rotação correta
-            addPlane(worldPosition: worldPos, worldRotation: worldRotation)
+            //addPlane(worldPosition: worldPos, worldRotation: worldRotation)
         } else {
             print("Nenhum plano detectado no local do toque.")
         }
     }
 
-    @MainActor func addPlane(worldPosition: SIMD3<Float>, worldRotation: simd_quatf) {
-        guard let arView = arView else { return }
+    @MainActor func addPlane(worldPosition: SIMD3<Float>, worldRotation: simd_quatf, size: CGPoint, imageName: String) -> ModelEntity? {
+        guard let arView,
+              let texture = imageToTexture(named: imageName) else {
+            return nil
+        }
         
         let anchor = AnchorEntity(world: worldPosition)
+                
+        let planeMesh = MeshResource.generatePlane(width: Float(size.x), depth: Float(size.y))
+    
+        let baseColor = MaterialParameters.Texture(texture)
+    
+        var planeMaterial = UnlitMaterial()
+        planeMaterial.color = SimpleMaterial.BaseColor(tint: .white, texture: baseColor)
+        planeMaterial.blending = .transparent(opacity: 1.0)
 
-        let planeMesh = MeshResource.generatePlane(width: 0.1, depth: 0.1)
-        let planeMaterial = SimpleMaterial(color: .blue, isMetallic: false)
         let planeEntity = ModelEntity(mesh: planeMesh, materials: [planeMaterial])
 
         // Aplica a rotação do plano base ao plano adicionado
@@ -142,31 +154,32 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
 
         anchor.addChild(planeEntity)
         arView.scene.addAnchor(anchor)
+        
+        return planeEntity
     }
 
     @MainActor
     func addPainting(painting: String) {
-        guard let arView, let focusIndicator else { return }
+        guard let focusIndicator else { return }
         
-        guard let texture = imageToTexture(named: painting) else { return }
+        let basePosition = focusIndicator.position
         
-        let planeMesh = MeshResource.generatePlane(width: 0.5, depth: 0.5)
-    
-        let baseColor = MaterialParameters.Texture(texture)
-    
-        var material = UnlitMaterial()
-        material.color = SimpleMaterial.BaseColor(tint: .white, texture: baseColor)
-        material.blending = .transparent(opacity: 1.0)
-    
-        let planeEntity = ModelEntity(mesh: planeMesh, materials: [material])
-    
-        let anchor = AnchorEntity(world: focusIndicator.position)
-        anchor.addChild(planeEntity)
-    
-        // Align plane with FocusEntity orientation
-        planeEntity.transform.rotation = focusIndicator.transform.rotation
-    
-        arView.scene.addAnchor(anchor)
+        _ = addPlane(worldPosition: basePosition, worldRotation: focusIndicator.transform.rotation, size: CGPoint(x: 0.5, y: 0.5), imageName: painting)
+        
+        let rightVector = SIMD3(x: focusIndicator.transform.matrix.columns.0.x,
+                                y: focusIndicator.transform.matrix.columns.0.y,
+                                z: focusIndicator.transform.matrix.columns.0.z)
+        
+        let upVector = SIMD3(x: focusIndicator.transform.matrix.columns.2.x,
+                             y: focusIndicator.transform.matrix.columns.2.y,
+                             z: focusIndicator.transform.matrix.columns.2.z)
+
+        // Calcular nova posição da âncora
+        let boardPosition = basePosition - (rightVector * 0.4) - (upVector * 0.2)
+        
+//        let boardPosition = SIMD3(x: focusIndicator.position.x - 0.5, y: focusIndicator.position.y,z: focusIndicator.position.z)
+        
+        _ = addPlane(worldPosition: boardPosition, worldRotation: focusIndicator.transform.rotation, size: CGPoint(x: 0.2, y: 0.2), imageName: "infoBoard")
     
         DispatchQueue.main.async {
             self.enableButton = false
