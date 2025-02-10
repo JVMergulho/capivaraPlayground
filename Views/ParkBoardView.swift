@@ -37,13 +37,15 @@ struct ParkBoardView: View {
                 Rectangle()
                     .frame(width: 260)
                     .frame(height: 2)
+                    .padding(.bottom, 2)
                 
                 Text("State of Piauí, Brazil")
-                    .font(.system(size: 14, weight: .medium))
-                    .padding(.bottom, 4)
+                    .font(.system(size: 14, weight: .semibold))
+                    .padding(.bottom, 2)
                 
                 Text("Founded in 1979")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: 14, weight: .medium))
+                    .padding(.bottom, 2)
             }
             .foregroundStyle(Color.greenTitle)
         }
