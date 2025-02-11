@@ -39,6 +39,8 @@ struct ARViewContainer: UIViewRepresentable {
         
         coordinator.arView = arView
         
+        coordinator.setupFocusIndicator()
+        
         //arView.debugOptions = .showAnchorGeometry
         
         return arView
