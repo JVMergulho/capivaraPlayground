@@ -28,6 +28,8 @@ struct ContentView: View {
                             MenuView(path: $path)
                         case .timeline:
                             TimelineView()
+                    case .intro:
+                            IntroView(path: $path)
                     }
                 }
         }

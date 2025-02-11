@@ -11,4 +11,5 @@ enum Page: Hashable {
     case arSite(Site)
     case credits
     case timeline
+    case intro
 }

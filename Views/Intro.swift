@@ -13,69 +13,107 @@ struct Capivara{
 }
 
 let frames = [
-    Capivara(text: "Hi, I am Niède", image: "capivara1"),
-    Capivara(text: "Hi, I am Niède", image: "capivara2"),
-    Capivara(text: "Hi, I am Niède", image: "capivara3")
+    Capivara(text: """
+             Welcome to Serra da Capivara National Park!
+             
+             You are in one of the most fascinating places in the world! The Park is home to the largest concentration of cave paintings ever recorded.
+    """, image: "capivara1"),
+    Capivara(text: """
+             Welcome to Serra da Capivara National Park!
+             
+             You are in one of the most fascinating places in the world! The Park is home to the largest concentration of cave paintings ever recorded.
+    """, image: "capivara2"),
+    Capivara(text: """
+             Welcome to Serra da Capivara National Park!
+             
+             You are in one of the most fascinating places in the world! The Park is home to the largest concentration of cave paintings ever recorded.
+    """, image: "capivara3")
 ]
 
 struct IntroView: View {
     
+    @Binding var path: NavigationPath
     @State var currentFrame = 0
     
     var showPrev: Bool {
         return currentFrame > 0
     }
     var showNext: Bool {
-        return currentFrame < frames.count
+        return currentFrame < frames.count - 1
     }
     
     var body: some View {
         GeometryReader { geometry in
-            VStack {
-                Spacer()
+            ZStack {
                 
-                VStack{
-                    Text(frames[currentFrame].text)
-                    
-                    HStack{
+                Image(.bubble1)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 340)
+                .overlay(){
+                    VStack{
+                        Text(frames[currentFrame].text)
+                            .frame(height: 180)
                         
-                        if showPrev{
-                            Button(action: {
-                                prevFrame()
-                            }){
-                                Image(systemName: "arrowtriangle.right.fill")
-                                    .rotationEffect(Angle(degrees: 180))
-                                    .foregroundStyle(Color.redTitle)
+                        HStack{
+                            if showPrev{
+                                Button(action: {
+                                    prevFrame()
+                                }){
+                                    Image(systemName: "arrowshape.left.fill")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                        .foregroundStyle(Color.redTitle)
+                                }
+                            }
+                            
+                            Spacer()
+                            
+                            if showNext{
+                                Button(action: {
+                                    nextFrame()
+                                }){
+                                    Image(systemName: "arrowshape.right.fill")
+                                        .resizable()
+                                        .frame(width: 22, height: 22)
+                                        .foregroundStyle(Color.redTitle)
+                                        
+                                }
+                            } else {
+                                Button(action:{
+                                    path.append(Page.map)
+                                }){
+                                    Text("Continue")
+                                        .font(.system(size: 20, weight: .medium))
+                                        .foregroundStyle(.white)
+                                        .frame(width: 110, height: 42)
+                                        .background( Color.redTitle)
+                                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                                }
                             }
                         }
-                        
-                        if showNext{
-                            Button(action: {
-                                nextFrame()
-                            }){
-                                Image(systemName: "arrowtriangle.right.fill")
-                                    .foregroundStyle(Color.redTitle)
-                            }
-                        }
+                        .frame(height: 40)
+                        .padding(.bottom, 80)
                     }
+                    .frame(width: 300, height: 180)
                 }
+                .padding(.top, 60)
 
                 HStack {
                     Image(frames[currentFrame].image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .clipped()
-                        .offset(x: geometry.size.width * 0.15, y: geometry.size.height * 0.03)
+                        .offset(x: geometry.size.width * 0.2, y: geometry.size.height * 0.47)
                 }
                 .frame(width: geometry.size.width)
             }
-            .frame(height: geometry.size.height)
         }
         .ignoresSafeArea()
     }
     
     func nextFrame(){
-        if currentFrame < frames.count{
+        if currentFrame < frames.count - 1{
             currentFrame += 1
         }
     }
@@ -90,5 +128,5 @@ struct IntroView: View {
 
 
 #Preview {
-    IntroView()
+    IntroView(path: .constant(NavigationPath()))
 }

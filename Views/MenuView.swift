@@ -43,7 +43,7 @@ struct MenuView: View {
                     Spacer()
                     
                     RedButton(title: "Enter Park"){
-                        path.append(Page.map)
+                        path.append(Page.intro)
                         print("Apertou")
                         print(path)
                     }
