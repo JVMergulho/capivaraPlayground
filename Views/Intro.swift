@@ -7,23 +7,23 @@
 
 import SwiftUI
 
-struct Capivara{
+struct Dialog{
     let text: String
     let image: String
 }
 
-let frames = [
-    Capivara(text: """
+let dialogs = [
+    Dialog(text: """
              Welcome to Serra da Capivara National Park!
              
              You are in one of the most fascinating places in the world! The Park is home to the largest concentration of cave paintings ever recorded.
     """, image: "capivara1"),
-    Capivara(text: """
+    Dialog(text: """
              Welcome to Serra da Capivara National Park!
              
              You are in one of the most fascinating places in the world! The Park is home to the largest concentration of cave paintings ever recorded.
     """, image: "capivara2"),
-    Capivara(text: """
+    Dialog(text: """
              Welcome to Serra da Capivara National Park!
              
              You are in one of the most fascinating places in the world! The Park is home to the largest concentration of cave paintings ever recorded.
@@ -39,7 +39,7 @@ struct IntroView: View {
         return currentFrame > 0
     }
     var showNext: Bool {
-        return currentFrame < frames.count - 1
+        return currentFrame < dialogs.count - 1
     }
     
     var body: some View {
@@ -52,7 +52,7 @@ struct IntroView: View {
                 .frame(width: 340)
                 .overlay(){
                     VStack{
-                        Text(frames[currentFrame].text)
+                        Text(dialogs[currentFrame].text)
                             .frame(height: 180)
                         
                         HStack{
@@ -100,7 +100,7 @@ struct IntroView: View {
                 .padding(.top, 60)
 
                 HStack {
-                    Image(frames[currentFrame].image)
+                    Image(dialogs[currentFrame].image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .clipped()
@@ -113,7 +113,7 @@ struct IntroView: View {
     }
     
     func nextFrame(){
-        if currentFrame < frames.count - 1{
+        if currentFrame < dialogs.count - 1{
             currentFrame += 1
         }
     }
@@ -125,7 +125,21 @@ struct IntroView: View {
     }
 }
 
-
+//extension IntroView{
+//    
+//    func typeWriter(at position: Int = 0) {
+//        let text = dialogs[currentFrame].text
+//        guard position < text.count else { return }
+//        
+//        let index = text.index(text.startIndex, offsetBy: position)
+//        
+//        self.dialogText += String(text[index])
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.015) {
+//            typeWriter(at: position + 1)
+//        }
+//    }
+//}
 
 #Preview {
     IntroView(path: .constant(NavigationPath()))
