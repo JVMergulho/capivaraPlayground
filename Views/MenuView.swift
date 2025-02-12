@@ -45,7 +45,7 @@ struct MenuView: View {
                     
                     Spacer()
                     
-                    Image(.pedraFurada3)
+                    Image(.pedraFurada)
                         .resizable()
                         .scaledToFit()
                         //.frame(width: screenWidth)

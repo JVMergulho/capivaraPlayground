@@ -7,8 +7,11 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct ARSiteView: View {
     @StateObject private var coordinator = ARCoordinator()
+    @State var showInfo: Bool = false
+    
     let selectedSite: Site
     
     var body: some View {
@@ -31,6 +34,12 @@ struct ARSiteView: View {
                     .resizable()
                     .frame(width: 120, height: 120)
             }
+        }
+        .fullScreenCover(isPresented: $showInfo){
+            InfoBoardView(infoPresented: $showInfo)
+        }
+        .onChange(of: coordinator.infoSelected){
+            showInfo = true
         }
     }
 }

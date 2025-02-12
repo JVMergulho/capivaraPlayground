@@ -18,11 +18,22 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
     @Published var showButton: Bool = true
     @Published var paintingWasPlaced: Bool = false
     @Published var showFocusSquare: Bool = false
+    @Published var infoSelected: Bool = false
+    
     var overlayActivated: Bool = false
     
     var focusIndicator: ModelEntity?
+    var infoBoard: ModelEntity?
+    
+    @MainActor func setup(){
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        arView?.addGestureRecognizer(tapGesture)
+        
+        setupFocusIndicator()
+    }
     
     @MainActor func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        
         // only show focus indicator before the painting was placed
         if !paintingWasPlaced{
             
@@ -47,8 +58,6 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
     }
     
     @MainActor func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-//        arView?.addGestureRecognizer(tapGesture)
         overlayActivated = false
         
         if let focusIndicator{
@@ -116,20 +125,30 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
         let tapLocation = recognizer.location(in: arView)
         print("Toque realizado na posição: \(tapLocation)")
 
-        // Perform a raycast
-        let raycastResults = arView?.raycast(from: tapLocation, allowing: .estimatedPlane, alignment: .any)
-        
-        if let result = raycastResults?.first {
-            let worldPos = result.worldTransform.translation
-            let worldRotation = simd_quatf(result.worldTransform)
-            print("Coordenada 3D do toque: \(worldPos)")
-
-            // Adiciona o plano com a rotação correta
-            //addPlane(worldPosition: worldPos, worldRotation: worldRotation)
-        } else {
-            print("Nenhum plano detectado no local do toque.")
+        if let hitEntity = arView?.entity(at: tapLocation) {
+            
+            if hitEntity == infoBoard{
+                print("Board Taped")
+                infoSelected.toggle()
+            }
+            
+            return
         }
     }
+    
+//    @MainActor @objc private func handleTap(sender: UITapGestureRecognizer) {
+//        guard let arView else { return }
+//
+//        let tapLocation: CGPoint = sender.location(in: arView)
+//        let result: [CollisionCastHit] = arView.hitTest(tapLocation)
+//
+//        guard let hitTest: CollisionCastHit = result.first
+//        else { return }
+//
+//        let entity: Entity = hitTest.entity
+//        
+//        print(entity)
+//    }
 
     @MainActor func addPlane(worldPosition: SIMD3<Float>, worldRotation: simd_quatf, size: CGPoint, imageName: String) -> ModelEntity? {
         guard let arView,
@@ -148,6 +167,8 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
         planeMaterial.blending = .transparent(opacity: 1.0)
 
         let planeEntity = ModelEntity(mesh: planeMesh, materials: [planeMaterial])
+        
+        planeEntity.components[CollisionComponent.self] = CollisionComponent(shapes: [.generateBox(size: [Float(size.x), 0.001, Float(size.y)])])
 
         // Aplica a rotação do plano base ao plano adicionado
         planeEntity.orientation = worldRotation
@@ -177,9 +198,7 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
         // Calcular nova posição da âncora
         let boardPosition = basePosition - (rightVector * 0.4) - (upVector * 0.2)
         
-//        let boardPosition = SIMD3(x: focusIndicator.position.x - 0.5, y: focusIndicator.position.y,z: focusIndicator.position.z)
-        
-        _ = addPlane(worldPosition: boardPosition, worldRotation: focusIndicator.transform.rotation, size: CGPoint(x: 0.2, y: 0.2), imageName: "infoBoard")
+        self.infoBoard = addPlane(worldPosition: boardPosition, worldRotation: focusIndicator.transform.rotation, size: CGPoint(x: 0.2, y: 0.2), imageName: "infoPedraFurada")
     
         DispatchQueue.main.async {
             self.enableButton = false
