@@ -7,29 +7,6 @@
 
 import SwiftUI
 
-struct Dialog{
-    let text: String
-    let image: String
-}
-
-let dialogs = [
-    Dialog(text: """
-             Welcome to Serra da Capivara National Park!
-             
-             You are in one of the most fascinating places in the world! The Park is home to the largest concentration of cave paintings ever recorded.
-    """, image: "capivara1"),
-    Dialog(text: """
-             Welcome to Serra da Capivara National Park!
-             
-             You are in one of the most fascinating places in the world! The Park is home to the largest concentration of cave paintings ever recorded.
-    """, image: "capivara2"),
-    Dialog(text: """
-             Welcome to Serra da Capivara National Park!
-             
-             You are in one of the most fascinating places in the world! The Park is home to the largest concentration of cave paintings ever recorded.
-    """, image: "capivara3")
-]
-
 struct IntroView: View {
     
     @Binding var path: NavigationPath
@@ -107,6 +84,9 @@ struct IntroView: View {
                         .offset(x: geometry.size.width * 0.2, y: geometry.size.height * 0.47)
                 }
                 .frame(width: geometry.size.width)
+            }
+            .onDisappear(){
+                currentFrame = 0
             }
         }
         .ignoresSafeArea()

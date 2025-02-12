@@ -14,6 +14,7 @@ struct MenuView: View {
     @Binding var path: NavigationPath
     @State var offsetY = 0.2
     @State var showIntro = false
+    @State var showButtons = true
     let animationDuration = 0.6
     
     var body: some View {
@@ -55,12 +56,13 @@ struct MenuView: View {
                 .offset(y: geometry.size.height * offsetY)
                 .animation(.easeInOut(duration: animationDuration), value: offsetY)
                 
-                if !showIntro{
+                if showButtons{
                     VStack{
                         Spacer()
                         
                         RedButton(title: "Enter Park"){
                             offsetY = 0
+                            showButtons = false
                         }
                         .padding(.bottom, 34)
                         
@@ -69,19 +71,35 @@ struct MenuView: View {
                         }
                     }
                     .padding(.vertical, 68)
-                } else {
+                }
+                
+                if showIntro{
                     IntroView(path: $path)
                 }
                 
             }
             .ignoresSafeArea()
-            .onChange(of: offsetY){
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7){
-                    showIntro = true
+            .onChange(of: showButtons){
+                if showButtons == false{
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7){
+                        showIntro = true
+                    }
                 }
             }
             .animation(.easeInOut(duration: 0.6), value: showIntro)
+            .onDisappear(){
+                resetMenu()
+            }
         }
+    }
+}
+
+@available(iOS 17.0, *)
+extension MenuView{
+    func resetMenu(){
+        showIntro = false
+        showButtons = true
+        offsetY = 0.2
     }
 }
 

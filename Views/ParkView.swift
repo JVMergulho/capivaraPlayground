@@ -59,6 +59,7 @@ struct ParkView: View {
             }
             .animation(.easeInOut(duration: 0.4), value: showWarning)
         }
+        .navigationBarBackButtonHidden(showWarning)
     }
 }
 
