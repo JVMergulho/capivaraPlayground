@@ -14,6 +14,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack(path: $path){
+            
             MenuView(path: $path)
                 .navigationDestination(for: Page.self){ page in
                     
@@ -28,8 +29,10 @@ struct ContentView: View {
                             MenuView(path: $path)
                         case .timeline:
                             TimelineView()
-                    case .intro:
+                        case .intro:
                             IntroView(path: $path)
+                        case .warning(let site):
+                            WarningView(path: $path, selectedSite: site)
                     }
                 }
         }

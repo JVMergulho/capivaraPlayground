@@ -47,7 +47,7 @@ struct ParkView: View {
             .onChange(of: selectedSite){
                 if let site = selectedSite {
                     print("Visiting \(site.name)")
-                    path.append(Page.arSite(site))
+                    path.append(Page.warning(site))
                     
                     // reset site
                     selectedSite = nil

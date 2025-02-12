@@ -37,6 +37,7 @@ struct ARSiteView: View {
         }
         .fullScreenCover(isPresented: $showInfo){
             InfoBoardView(infoPresented: $showInfo)
+                .presentationBackground(.black.opacity(0.5))
         }
         .onChange(of: coordinator.infoSelected){
             showInfo = true
