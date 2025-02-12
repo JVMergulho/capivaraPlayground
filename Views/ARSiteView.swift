@@ -34,13 +34,14 @@ struct ARSiteView: View {
                     .resizable()
                     .frame(width: 120, height: 120)
             }
-        }
-        .fullScreenCover(isPresented: $showInfo){
-            InfoBoardView(infoPresented: $showInfo)
-                .presentationBackground(.black.opacity(0.5))
+            
+            if showInfo{
+                InfoBoardView(infoPresented: $showInfo)
+            }
         }
         .onChange(of: coordinator.infoSelected){
             showInfo = true
         }
+        .animation(.easeInOut(duration: 0.6), value: showInfo)
     }
 }

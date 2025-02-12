@@ -12,5 +12,4 @@ enum Page: Hashable {
     case credits
     case timeline
     case intro
-    case warning(Site)
 }

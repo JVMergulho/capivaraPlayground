@@ -31,8 +31,6 @@ struct ContentView: View {
                             TimelineView()
                         case .intro:
                             IntroView(path: $path)
-                        case .warning(let site):
-                            WarningView(path: $path, selectedSite: site)
                     }
                 }
         }

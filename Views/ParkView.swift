@@ -10,6 +10,7 @@ import SwiftUI
 @available(iOS 17.0, *)
 struct ParkView: View {
     @State var selectedSite: Site?
+    @State var showWarning = false
     
     @Binding var path: NavigationPath
     
@@ -43,16 +44,20 @@ struct ParkView: View {
                     
                     Spacer()
                 }
-            }
-            .onChange(of: selectedSite){
-                if let site = selectedSite {
-                    print("Visiting \(site.name)")
-                    path.append(Page.warning(site))
-                    
-                    // reset site
-                    selectedSite = nil
+                
+                if showWarning{
+                    WarningView(path: $path, showWarning: $showWarning, selectedSite: selectedSite!)
+                        .onDisappear(){
+                            selectedSite = nil
+                        }
                 }
             }
+            .onChange(of: selectedSite){
+                if selectedSite != nil{
+                    showWarning.toggle()
+                }
+            }
+            .animation(.easeInOut(duration: 0.4), value: showWarning)
         }
     }
 }
