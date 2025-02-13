@@ -41,7 +41,8 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "AppModule",
-            path: "."
+            path: ".",
+            resources: [.process("Audios")]
         )
     ],
     swiftLanguageVersions: [.version("6")]

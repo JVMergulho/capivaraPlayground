@@ -87,8 +87,12 @@ struct MenuView: View {
                 }
             }
             .animation(.easeInOut(duration: 0.6), value: showIntro)
+            .onAppear(){
+                AudioManager.shared.setupAndPlay(filename: "birds")
+            }
             .onDisappear(){
                 resetMenu()
+                AudioManager.shared.stop()
             }
         }
     }
