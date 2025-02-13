@@ -35,6 +35,10 @@ struct ARSiteView: View {
                     .frame(width: 120, height: 120)
             }
             
+            if coordinator.paintingWasPlaced && !showInfo{
+                TipView()
+            }
+            
             if showInfo{
                 InfoBoardView(infoPresented: $showInfo)
             }
@@ -43,5 +47,6 @@ struct ARSiteView: View {
             showInfo = true
         }
         .animation(.easeInOut(duration: 0.6), value: showInfo)
+        .animation(.easeInOut(duration: 0.6), value: coordinator.paintingWasPlaced)
     }
 }

@@ -135,20 +135,6 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
             return
         }
     }
-    
-//    @MainActor @objc private func handleTap(sender: UITapGestureRecognizer) {
-//        guard let arView else { return }
-//
-//        let tapLocation: CGPoint = sender.location(in: arView)
-//        let result: [CollisionCastHit] = arView.hitTest(tapLocation)
-//
-//        guard let hitTest: CollisionCastHit = result.first
-//        else { return }
-//
-//        let entity: Entity = hitTest.entity
-//        
-//        print(entity)
-//    }
 
     @MainActor func addPlane(worldPosition: SIMD3<Float>, worldRotation: simd_quatf, size: CGPoint, imageName: String) -> ModelEntity? {
         guard let arView,
