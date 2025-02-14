@@ -9,6 +9,8 @@ import SwiftUI
 
 struct IntroView: View {
     
+    var footStepEffect = Effect(forSound: "footstep")
+    
     @Binding var path: NavigationPath
     @State var currentFrame = 0
     
@@ -95,12 +97,14 @@ struct IntroView: View {
     func nextFrame(){
         if currentFrame < dialogs.count - 1{
             currentFrame += 1
+            footStepEffect?.play()
         }
     }
     
     func prevFrame(){
         if currentFrame > 0 {
             currentFrame -= 1
+            footStepEffect?.play()
         }
     }
 }
