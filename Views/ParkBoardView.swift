@@ -8,50 +8,49 @@
 import SwiftUI
 
 struct ParkBoardView: View {
+    let title: String
+    
     var body: some View {
         ZStack{
-            Color.white
-                .frame(width: 308, height: 168)
+            Color.parkBoardBg
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.darkBrown, lineWidth: 6)
                 )
             VStack{
-                Text("Serra da Capivara")
-                    .font(.system(size: 30, weight: .bold))
                 HStack{
                     Image(.brazil)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 28)
-                    
-                    Text("National Park")
-                        .font(.system(size: 24, weight: .semibold))
+                        .frame(height: 24)
+
+                    Text(title)
+                        .font(.system(size: 30, weight: .bold))
+                        .padding(.horizontal)
                     
                     Image(.serraLogo)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 40)
+                        .frame(height: 24)
                 }
+                .padding(.bottom, 2)
                 
                 Rectangle()
                     .frame(width: 260)
                     .frame(height: 2)
                     .padding(.bottom, 2)
                 
-                Text("State of Piauí, Brazil")
-                    .font(.system(size: 14, weight: .semibold))
-                    .padding(.bottom, 2)
-                
-                Text("Founded in 1979")
-                    .font(.system(size: 14, weight: .medium))
+                Text("Serra da Capivara National Park")
+                    .font(.system(size: 20, weight: .semibold))
                     .padding(.bottom, 2)
             }
             .foregroundStyle(Color.greenTitle)
         }
+        .frame(height: 108)
+        .padding(.horizontal, 20)
     }
 }
 
 #Preview {
-    ParkBoardView()
+    ParkBoardView2(title: "Park Map")
 }
