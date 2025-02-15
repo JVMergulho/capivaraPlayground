@@ -37,13 +37,15 @@ struct ParkView: View {
                         .padding(.trailing, 20)
                     }
                     
-                    ParkBoardView()
+                    ParkBoardView(title: "Park Map")
                     
                     MapView(selectedSite: $selectedSite)
-                        .padding()
+                        .padding(.horizontal)
                     
-                    Spacer()
+                    Spacer(minLength: 200)
                 }
+                
+                TipView(capivaraImage: .capivara2, text: "Select a pin to visit the archeology site!")
                 
                 if showWarning{
                     WarningView(path: $path, showWarning: $showWarning, selectedSite: selectedSite!)

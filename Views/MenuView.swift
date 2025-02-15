@@ -63,11 +63,13 @@ struct MenuView: View {
                         RedButton(title: "Enter Park"){
                             offsetY = 0
                             showButtons = false
+                            footStepEffect?.play()
                         }
                         .padding(.bottom, 34)
                         
                         RedButton(title: "Credits"){
                             path.append(Page.credits)
+                            footStepEffect?.play()
                         }
                     }
                     .padding(.vertical, 68)

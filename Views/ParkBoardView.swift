@@ -52,5 +52,5 @@ struct ParkBoardView: View {
 }
 
 #Preview {
-    ParkBoardView2(title: "Park Map")
+    ParkBoardView(title: "Park Map")
 }

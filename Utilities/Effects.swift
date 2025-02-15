@@ -9,6 +9,8 @@ import SpriteKit
 import Foundation
 import AVFoundation
 
+@MainActor let footStepEffect = Effect(forSound: "footstep")
+
 class Effect {
     var audioPlayerNode = AVAudioPlayerNode()
     var audioPitchTime = AVAudioUnitTimePitch()

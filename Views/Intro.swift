@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct IntroView: View {
-    
-    var footStepEffect = Effect(forSound: "footstep")
-    
     @Binding var path: NavigationPath
     @State var currentFrame = 0
     
@@ -61,6 +58,7 @@ struct IntroView: View {
                             } else {
                                 Button(action:{
                                     path.append(Page.map)
+                                    footStepEffect?.play()
                                 }){
                                     Text("Continue")
                                         .font(.system(size: 20, weight: .medium))

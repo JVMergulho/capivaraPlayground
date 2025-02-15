@@ -23,28 +23,33 @@ struct TimelineView: View {
                 .ignoresSafeArea()
             
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    ForEach(events) { event in
-                        VStack(alignment: .leading) {
-                            Text(event.year)
-                                .bold()
-                                .foregroundColor(.redTitle)
-                                .frame(width: 100, alignment: .leading)
+                
+                VStack{
+                    ParkBoardView(title: "Timeline")
+                    
+                    VStack(alignment: .leading, spacing: 20) {
+                        ForEach(events) { event in
                             VStack(alignment: .leading) {
-                                Text(event.title)
-                                    .font(.headline)
+                                Text(event.year)
+                                    .bold()
                                     .foregroundColor(.redTitle)
-                                
-                                Text(event.description)
-                                    .font(.subheadline)
-                                    .foregroundColor(.black)
-                                    .padding(.top, 8)
+                                    .frame(width: 100, alignment: .leading)
+                                VStack(alignment: .leading) {
+                                    Text(event.title)
+                                        .font(.headline)
+                                        .foregroundColor(.redTitle)
+                                    
+                                    Text(event.description)
+                                        .font(.subheadline)
+                                        .foregroundColor(.black)
+                                        .padding(.top, 8)
+                                }
                             }
+                            .padding()
                         }
-                        .padding()
                     }
+                    .padding()
                 }
-                .padding()
             }
             .scrollIndicators(.hidden)
         }

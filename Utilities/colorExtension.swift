@@ -15,4 +15,6 @@ extension Color {
     public static let greenTitle = Color(red: 60 / 255.0, green: 80 / 255.0, blue: 50 / 255.0, opacity: 1)
     public static let darkBrown = Color(red: 125 / 255.0, green: 83 / 255.0, blue: 21 / 255.0, opacity: 1)
     public static let grayBg = Color(red: 135 / 255.0, green: 135 / 255.0, blue: 135 / 255.0, opacity: 0.8)
+    public static let parkBoardBg = Color(red: 255 / 255.0, green: 245 / 255.0, blue: 212 / 255.0, opacity: 1)
+
 }
