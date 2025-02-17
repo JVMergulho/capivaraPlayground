@@ -16,7 +16,7 @@ class AudioManager {
 
     func setupAndPlay(filename: String, withExtension ext: String = "mp3", volume: Float = 0.2, loops: Bool = true) {
         guard let fileURL = Bundle.main.url(forResource: filename, withExtension: ext) else {
-            print("Erro: arquivo de música \(filename).\(ext) não encontrado.")
+            print("Erro: Audio file \(filename).\(ext) not found.")
             return
         }
 
@@ -26,7 +26,7 @@ class AudioManager {
             AudioPlayer?.volume = volume
             AudioPlayer?.play()
         } catch {
-            print("Falha ao iniciar o áudio: \(error)")
+            print("Failed to initialize audio: \(error)")
         }
     }
 

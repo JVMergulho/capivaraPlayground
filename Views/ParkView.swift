@@ -45,7 +45,7 @@ struct ParkView: View {
                     Spacer(minLength: 200)
                 }
                 
-                TipView(capivaraImage: .capivara2, text: Text("**Select a pin** to visit the archeology site!"))
+                TipView(capivaraImage: .capivara2, text: Text("**Select a pin** to visit the archeological site!"))
                 
                 if showWarning{
                     WarningView(path: $path, showWarning: $showWarning, selectedSite: selectedSite!)
