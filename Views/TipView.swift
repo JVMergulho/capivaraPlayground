@@ -10,7 +10,7 @@ import SwiftUI
 struct TipView: View {
     
     let capivaraImage: ImageResource
-    let text: String
+    let text: Text
     
     var body: some View {
         GeometryReader { geometry in
@@ -26,7 +26,7 @@ struct TipView: View {
                             .clipped()
                             .frame(width: 208)
                             .overlay(){
-                                Text(text)
+                                text
                                     .padding(.trailing, 26)
                                     .padding(.leading, 4)
                                     .multilineTextAlignment(.center)
@@ -52,5 +52,5 @@ struct TipView: View {
 }
 
 #Preview {
-    TipView(capivaraImage: .capivara2, text: "Select a pin to visit the archeology site!")
+    TipView(capivaraImage: .capivara2, text: Text("**Select a pin** to visit the archeology site!"))
 }

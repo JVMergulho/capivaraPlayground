@@ -28,7 +28,7 @@ struct IntroView: View {
                 .frame(width: 340)
                 .overlay(){
                     VStack{
-                        Text(dialogs[currentFrame].text)
+                        dialogs[currentFrame].text
                             .frame(height: 180)
                         
                         HStack{

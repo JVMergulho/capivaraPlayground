@@ -11,6 +11,7 @@ import SwiftUI
 struct ARSiteView: View {
     @StateObject private var coordinator = ARCoordinator()
     @State var showInfo: Bool = false
+    @State var infoWasPresented: Bool = false
     
     let selectedSite: Site
     
@@ -35,8 +36,8 @@ struct ARSiteView: View {
                     .frame(width: 120, height: 120)
             }
             
-            if coordinator.paintingWasPlaced && !showInfo{
-                TipView(capivaraImage: .capivara3, text: "Tap in the yellow board to get more information about this site!")
+            if coordinator.paintingWasPlaced && !infoWasPresented{
+                TipView(capivaraImage: .capivara3, text: Text("**Tap in the yellow board** to get more information about this site!"))
             }
             
             if showInfo{
@@ -45,6 +46,7 @@ struct ARSiteView: View {
         }
         .onChange(of: coordinator.infoSelected){
             showInfo = true
+            infoWasPresented = true
         }
         .animation(.easeInOut(duration: 0.6), value: showInfo)
         .animation(.easeInOut(duration: 0.6), value: coordinator.paintingWasPlaced)
