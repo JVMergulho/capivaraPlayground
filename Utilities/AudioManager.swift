@@ -29,17 +29,19 @@ class AudioManager {
             print("Failed to initialize audio: \(error)")
         }
     }
+    
+    func toggle() {
+        guard let AudioPlayer else { return }
+        
+        if AudioPlayer.isPlaying{
+            AudioPlayer.pause()
+        } else {
+            AudioPlayer.play()
+        }
+    }
 
     func stop() {
         AudioPlayer?.stop()
-    }
-
-    func pause() {
-        AudioPlayer?.pause()
-    }
-
-    func resume() {
-        AudioPlayer?.play()
     }
 
     func setVolume(_ volume: Float) {

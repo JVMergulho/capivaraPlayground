@@ -11,6 +11,7 @@ import SwiftUI
 struct ParkView: View {
     @State var selectedSite: Site?
     @State var showWarning = false
+    @State var isMusicOn = true
     
     @Binding var path: NavigationPath
     
@@ -26,18 +27,8 @@ struct ParkView: View {
                 
                 VStack{
                     
-                    HStack{
-                        Spacer()
-                        
-                        Button(action: {
-                            path.append(Page.timeline)
-                        }){
-                            Image("bookIcon")
-                        }
-                        .padding(.trailing, 20)
-                    }
-                    
                     ParkBoardView(title: "Park Map")
+                        .padding(.top)
                     
                     MapView(selectedSite: $selectedSite)
                         .padding(.horizontal)
@@ -60,6 +51,28 @@ struct ParkView: View {
                 }
             }
             .animation(.easeInOut(duration: 0.4), value: showWarning)
+        }
+        .toolbar(){
+            ToolbarItemGroup(){
+                Button(action: {
+                    AudioManager.shared.toggle()
+                    isMusicOn.toggle()
+                }){
+                    if (isMusicOn){
+                        Image(systemName: "speaker.fill")
+                            .foregroundStyle(Color.redTitle)
+                    } else {
+                        Image(systemName: "speaker.slash.fill")
+                            .foregroundStyle(Color.redTitle)
+                    }
+                }
+                
+                Button(action: {
+                    path.append(Page.timeline)
+                }){
+                    Image("bookIcon")
+                }
+            }
         }
         .navigationBarBackButtonHidden(showWarning)
     }

@@ -18,84 +18,94 @@ struct MenuView: View {
     let animationDuration = 0.6
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack{
-                Color.sky
-                
-                // clouds behind the rock
-                VStack{
-                    MovingClouds()
-                }
-                .offset(y: geometry.size.height * offsetY - 120)
-                .animation(.easeInOut(duration: animationDuration), value: offsetY)
-                
-                VStack{
+        NavigationView{
+            GeometryReader { geometry in
+                ZStack{
+                    Color.sky
                     
-                    if !showIntro{
-                        Image(.capivaraIcon)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 150)
-                        
-                        Image(.titleCapivara)
-                            .resizable()
-                            .scaledToFit()
-                            .padding(.horizontal, 40)
-                            .frame(width: screenWidth)
-                    }
-                    
-                    Spacer()
-                    
-                    Image(.pedraFurada)
-                        .resizable()
-                        .scaledToFit()
-                        //.frame(width: screenWidth)
-                        .clipped()
-                        
-                }
-                .offset(y: geometry.size.height * offsetY)
-                .animation(.easeInOut(duration: animationDuration), value: offsetY)
-                
-                if showButtons{
+                    // clouds behind the rock
                     VStack{
+                        MovingClouds()
+                    }
+                    .offset(y: geometry.size.height * offsetY - 120)
+                    .animation(.easeInOut(duration: animationDuration), value: offsetY)
+                    
+                    VStack{
+                        
+                        if !showIntro{
+                            Image(.capivaraIcon)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 150)
+                            
+                            Image(.titleCapivara)
+                                .resizable()
+                                .scaledToFit()
+                                .padding(.horizontal, 40)
+                                .frame(width: screenWidth)
+                        }
+                        
                         Spacer()
                         
-                        RedButton(title: "Enter Park"){
-                            offsetY = 0
-                            showButtons = false
-                            footStepEffect?.play()
+                        Image(.pedraFurada)
+                            .resizable()
+                            .scaledToFit()
+                            //.frame(width: screenWidth)
+                            .clipped()
+                            
+                    }
+                    .offset(y: geometry.size.height * offsetY)
+                    .animation(.easeInOut(duration: animationDuration), value: offsetY)
+                    
+                    if showButtons{
+                        VStack{
+                            Spacer()
+                            
+                            RedButton(title: "Enter Park"){
+                                offsetY = 0
+                                showButtons = false
+                                footStepEffect?.play()
+                            }
+                            .padding(.bottom, 34)
+                            
+                            RedButton(title: "Credits"){
+                                path.append(Page.credits)
+                                footStepEffect?.play()
+                            }
                         }
-                        .padding(.bottom, 34)
-                        
-                        RedButton(title: "Credits"){
-                            path.append(Page.credits)
-                            footStepEffect?.play()
+                        .padding(.vertical, 68)
+                    }
+                    
+                    if showIntro{
+                        IntroView(path: $path)
+                    }
+                    
+                }
+                .ignoresSafeArea()
+                .onChange(of: showButtons){
+                    if showButtons == false{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7){
+                            showIntro = true
                         }
                     }
-                    .padding(.vertical, 68)
                 }
-                
-                if showIntro{
-                    IntroView(path: $path)
+                .animation(.easeInOut(duration: 0.6), value: showIntro)
+                .onAppear(){
+                    AudioManager.shared.setupAndPlay(filename: "birds")
                 }
-                
-            }
-            .ignoresSafeArea()
-            .onChange(of: showButtons){
-                if showButtons == false{
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7){
-                        showIntro = true
-                    }
+                .onDisappear(){
+                    resetMenu()
+                    //AudioManager.shared.stop()
                 }
             }
-            .animation(.easeInOut(duration: 0.6), value: showIntro)
-            .onAppear(){
-                AudioManager.shared.setupAndPlay(filename: "birds")
-            }
-            .onDisappear(){
-                resetMenu()
-                AudioManager.shared.stop()
-            }
+        }
+        .toolbar(){
+            ToolbarItemGroup(){
+                Button(action: {
+                }){
+                    Image(systemName: "speaker.fill")
+                        .foregroundStyle(Color.redTitle)
+                }            }
         }
     }
 }
