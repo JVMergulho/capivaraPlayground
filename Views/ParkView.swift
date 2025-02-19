@@ -11,9 +11,10 @@ import SwiftUI
 struct ParkView: View {
     @State var selectedSite: Site?
     @State var showWarning = false
-    @State var isMusicOn = true
     
     @Binding var path: NavigationPath
+    
+    @EnvironmentObject var audioManager: AudioManager
     
     var body: some View {
         NavigationView{
@@ -55,10 +56,9 @@ struct ParkView: View {
         .toolbar(){
             ToolbarItemGroup(){
                 Button(action: {
-                    AudioManager.shared.toggle()
-                    isMusicOn.toggle()
+                    audioManager.toggle()
                 }){
-                    if (isMusicOn){
+                    if (audioManager.isPlaying){
                         Image(systemName: "speaker.fill")
                             .foregroundStyle(Color.redTitle)
                     } else {

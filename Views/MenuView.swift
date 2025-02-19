@@ -17,6 +17,8 @@ struct MenuView: View {
     @State var showButtons = true
     let animationDuration = 0.6
     
+    @EnvironmentObject var audioManager: AudioManager
+    
     var body: some View {
         NavigationView{
             GeometryReader { geometry in
@@ -90,22 +92,25 @@ struct MenuView: View {
                     }
                 }
                 .animation(.easeInOut(duration: 0.6), value: showIntro)
-                .onAppear(){
-                    AudioManager.shared.setupAndPlay(filename: "birds")
-                }
                 .onDisappear(){
                     resetMenu()
-                    //AudioManager.shared.stop()
                 }
             }
         }
         .toolbar(){
             ToolbarItemGroup(){
                 Button(action: {
+                    audioManager.toggle()
                 }){
-                    Image(systemName: "speaker.fill")
-                        .foregroundStyle(Color.redTitle)
-                }            }
+                    if (audioManager.isPlaying){
+                        Image(systemName: "speaker.fill")
+                            .foregroundStyle(Color.redTitle)
+                    } else {
+                        Image(systemName: "speaker.slash.fill")
+                            .foregroundStyle(Color.redTitle)
+                    }
+                }
+            }
         }
     }
 }

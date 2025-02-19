@@ -29,20 +29,25 @@ struct TimelineView: View {
                     
                     VStack(alignment: .leading, spacing: 20) {
                         ForEach(events) { event in
-                            VStack(alignment: .leading) {
-                                Text(event.year)
-                                    .bold()
-                                    .foregroundColor(.redTitle)
-                                    .frame(width: 100, alignment: .leading)
+                            HStack{
+                                Circle()
+                                    .frame()
+                                
                                 VStack(alignment: .leading) {
-                                    Text(event.title)
-                                        .font(.headline)
+                                    Text(event.year)
+                                        .bold()
                                         .foregroundColor(.redTitle)
-                                    
-                                    Text(event.description)
-                                        .font(.subheadline)
-                                        .foregroundColor(.black)
-                                        .padding(.top, 8)
+                                        .frame(width: 100, alignment: .leading)
+                                    VStack(alignment: .leading) {
+                                        Text(event.title)
+                                            .font(.headline)
+                                            .foregroundColor(.redTitle)
+                                        
+                                        Text(event.description)
+                                            .font(.subheadline)
+                                            .foregroundColor(.black)
+                                            .padding(.top, 8)
+                                    }
                                 }
                             }
                             .padding()

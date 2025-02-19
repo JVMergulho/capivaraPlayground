@@ -7,52 +7,44 @@
 
 import AVFoundation
 
-class AudioManager {
-    @MainActor static let shared = AudioManager() // Singleton
+class AudioManager: ObservableObject {
     
-    private var AudioPlayer: AVAudioPlayer?
-
-    private init() {}
-
+    private var audioPlayer: AVAudioPlayer?
+    @Published var isPlaying: Bool = false
+    
+    init() {}
+    
     func setupAndPlay(filename: String, withExtension ext: String = "mp3", volume: Float = 0.2, loops: Bool = true) {
         guard let fileURL = Bundle.main.url(forResource: filename, withExtension: ext) else {
             print("Erro: Audio file \(filename).\(ext) not found.")
             return
         }
-
+        
         do {
-            AudioPlayer = try AVAudioPlayer(contentsOf: fileURL)
-            AudioPlayer?.numberOfLoops = loops ? -1 : 0
-            AudioPlayer?.volume = volume
-            AudioPlayer?.play()
+            audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
+            audioPlayer?.numberOfLoops = loops ? -1 : 0
+            audioPlayer?.volume = volume
+            audioPlayer?.play()
+            isPlaying = true
         } catch {
             print("Failed to initialize audio: \(error)")
         }
     }
     
     func toggle() {
-        guard let AudioPlayer else { return }
+        guard let audioPlayer else { return }
         
-        if AudioPlayer.isPlaying{
-            AudioPlayer.pause()
+        if audioPlayer.isPlaying {
+            audioPlayer.pause()
         } else {
-            AudioPlayer.play()
+            audioPlayer.play()
         }
-    }
-
-    func stop() {
-        AudioPlayer?.stop()
-    }
-
-    func setVolume(_ volume: Float) {
-        AudioPlayer?.volume = volume
+        isPlaying = audioPlayer.isPlaying
     }
     
-    func updateAudioState(isMusicOn: Bool) {
-        if isMusicOn {
-            AudioPlayer?.play()
-        } else {
-            AudioPlayer?.stop()
-        }
+    func stop() {
+        audioPlayer?.stop()
+        isPlaying = false
     }
 }
+
