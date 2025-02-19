@@ -54,27 +54,38 @@ struct ParkView: View {
             .animation(.easeInOut(duration: 0.4), value: showWarning)
         }
         .toolbar(){
-            ToolbarItemGroup(){
-                Button(action: {
-                    audioManager.toggle()
-                }){
-                    if (audioManager.isPlaying){
-                        Image(systemName: "speaker.fill")
+            if !showWarning{
+                ToolbarItemGroup(){
+                    Button(action: {
+                        audioManager.toggle()
+                    }){
+                        if (audioManager.isPlaying){
+                            Image(systemName: "speaker.fill")
+                                .foregroundStyle(Color.redTitle)
+                                .font(.system(size: 20))
+                        } else {
+                            Image(systemName: "speaker.slash.fill")
+                                .foregroundStyle(Color.redTitle)
+                                .font(.system(size: 20))
+                        }
+                    }
+                    
+                    Button(action: {
+                        path.append(Page.timeline)
+                    }){
+                        Image(systemName: "book.circle.fill")
                             .foregroundStyle(Color.redTitle)
-                            .font(.system(size: 20))
-                    } else {
-                        Image(systemName: "speaker.slash.fill")
-                            .foregroundStyle(Color.redTitle)
-                            .font(.system(size: 20))
+                            .font(.system(size: 24))
                     }
                 }
-                
-                Button(action: {
-                    path.append(Page.timeline)
-                }){
-                    Image(systemName: "book.circle.fill")
-                        .foregroundStyle(Color.redTitle)
-                        .font(.system(size: 24))
+            } else {
+                ToolbarItemGroup(placement: .topBarLeading){
+                    Button(action: {
+                        showWarning = false
+                    }){
+                        Text("Cancel")
+                            .foregroundStyle(Color.redTitle)
+                    }
                 }
             }
         }

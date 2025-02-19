@@ -35,7 +35,7 @@ struct InfoBoardView: View {
                         }
                     }
                     
-                    Image(.infoPedraFurada)
+                    Image(selectedSite.infoBoard)
                         .resizable()
                         .scaledToFit()
                     

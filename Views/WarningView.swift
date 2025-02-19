@@ -21,12 +21,7 @@ struct WarningView: View {
             VStack(spacing: 28){
                 
                 HStack{
-                    Text("This is an ")
-                        .font(.system(size: 24))
-                    + Text("Augmented Reality")
-                        .font(.system(size: 24))
-                        .bold()
-                    + Text(" Experience")
+                    Text("**Augmented Reality Experience**")
                         .font(.system(size: 24))
                 }
                 .padding(.vertical, 16)
@@ -38,10 +33,9 @@ struct WarningView: View {
                 Image(.target)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 160)
+                    .frame(maxWidth: 160)
                 
                 Text("It means that the APP is detecting a projectable plane.")
-                    .padding(.bottom, 12)
                 
                 Spacer()
                 

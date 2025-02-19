@@ -166,12 +166,12 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
     }
 
     @MainActor
-    func addPainting(painting: String) {
+    func addPainting(selectedSite: Site) {
         guard let focusIndicator else { return }
         
         let basePosition = focusIndicator.position
         
-        _ = addPlane(worldPosition: basePosition, worldRotation: focusIndicator.transform.rotation, size: CGPoint(x: 0.5, y: 0.5), imageName: painting)
+        _ = addPlane(worldPosition: basePosition, worldRotation: focusIndicator.transform.rotation, size: CGPoint(x: 0.5, y: 0.5), imageName: selectedSite.painting)
         
         let rightVector = SIMD3(x: focusIndicator.transform.matrix.columns.0.x,
                                 y: focusIndicator.transform.matrix.columns.0.y,
@@ -184,7 +184,7 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
         // Calcular nova posição da âncora
         let boardPosition = basePosition - (rightVector * 0.4) - (upVector * 0.2)
         
-        self.infoBoard = addPlane(worldPosition: boardPosition, worldRotation: focusIndicator.transform.rotation, size: CGPoint(x: 0.2, y: 0.2), imageName: "infoPedraFurada")
+        self.infoBoard = addPlane(worldPosition: boardPosition, worldRotation: focusIndicator.transform.rotation, size: CGPoint(x: 0.2, y: 0.2), imageName: selectedSite.infoBoard)
     
         DispatchQueue.main.async {
             self.enableButton = false

@@ -25,7 +25,7 @@ struct ARSiteView: View {
                 Spacer()
                 if coordinator.showButton{
                     RedButton(title: "Place Painting", disabled: !coordinator.enableButton){
-                        coordinator.addPainting(painting: selectedSite.painting)
+                        coordinator.addPainting(selectedSite: selectedSite)
                         audioManager.playEffect()
                     }
                 }
