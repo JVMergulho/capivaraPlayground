@@ -19,6 +19,7 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
     @Published var paintingWasPlaced: Bool = false
     @Published var showFocusSquare: Bool = false
     @Published var infoSelected: Bool = false
+    var selectedSite: Site?
     
     var overlayActivated: Bool = false
     
@@ -67,6 +68,10 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
         setupFocusIndicator()
     }
     
+    func updateSite(site: Site){
+        selectedSite = site
+    }
+    
     @MainActor func setupFocusIndicator() {
         let planeMesh = MeshResource.generatePlane(width: 0.3, depth: 0.3)
     
@@ -83,6 +88,9 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
         
         focusIndicator = ModelEntity(mesh: planeMesh, materials: [planeMaterial])
         focusIndicator?.isEnabled = false
+        
+        // Adiciona um CollisionComponent para permitir interações
+        focusIndicator?.components[CollisionComponent.self] = CollisionComponent(shapes: [.generateBox(size: [0.3, 0.001, 0.3])])
         
         guard let arView, let focusIndicator else { return }
         
@@ -132,6 +140,11 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
                 infoSelected.toggle()
             }
             
+            if hitEntity == focusIndicator{
+                print("focus Taped")
+                addPainting()
+            }
+            
             return
         }
     }
@@ -166,12 +179,12 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
     }
 
     @MainActor
-    func addPainting(selectedSite: Site) {
-        guard let focusIndicator else { return }
+    func addPainting() {
+        guard let focusIndicator, let selectedSite else { return }
         
         let basePosition = focusIndicator.position
         
-        _ = addPlane(worldPosition: basePosition, worldRotation: focusIndicator.transform.rotation, size: CGPoint(x: 0.5, y: 0.5), imageName: selectedSite.painting)
+        _ = addPlane(worldPosition: basePosition, worldRotation: focusIndicator.transform.rotation, size: CGPoint(x: 0.6, y: 0.6), imageName: selectedSite.painting)
         
         let rightVector = SIMD3(x: focusIndicator.transform.matrix.columns.0.x,
                                 y: focusIndicator.transform.matrix.columns.0.y,

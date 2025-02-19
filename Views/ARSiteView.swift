@@ -25,7 +25,7 @@ struct ARSiteView: View {
                 Spacer()
                 if coordinator.showButton{
                     RedButton(title: "Place Painting", disabled: !coordinator.enableButton){
-                        coordinator.addPainting(selectedSite: selectedSite)
+                        coordinator.addPainting()
                         audioManager.playEffect()
                     }
                 }
@@ -49,6 +49,9 @@ struct ARSiteView: View {
         .onChange(of: coordinator.infoSelected){
             showInfo = true
             infoWasPresented = true
+        }
+        .onAppear(){
+            coordinator.updateSite(site: selectedSite)
         }
         .animation(.easeInOut(duration: 0.6), value: showInfo)
         .animation(.easeInOut(duration: 0.6), value: coordinator.paintingWasPlaced)
