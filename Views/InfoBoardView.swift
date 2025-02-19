@@ -9,6 +9,7 @@ import SwiftUI
 
 struct InfoBoardView: View {
     @Binding var infoPresented: Bool
+    let selectedSite: Site
     
     var body: some View {
         
@@ -38,18 +39,10 @@ struct InfoBoardView: View {
                         .resizable()
                         .scaledToFit()
                     
-                    TextBoxView( infoType: .painting, text: """
-                     A notable rock painting in Brazil's Serra da Capivara National Park depicts two capybaras, a mother and her offspring, symbolizing the park due to the historical presence of these animals in the region. 
-
-                     Above them, two human figures are shown alongside another animal, possibly illustrating prehistoric daily life activities such as hunting or rituals, highlighting interactions between early inhabitants and local fauna. 
-                     """)
+                    TextBoxView( infoType: .painting, text: selectedSite.paintingAbout)
                     .padding(.bottom, 16)
                     
-                    TextBoxView( infoType: .site, text: """
-                     Toca do Boqueirão da Pedra Furada (or simply known as Pedra Furada) is probably the most well- known tourist site in the region. Pedra Furada translates to pierced stone.
-
-                     The site presents are accepted to belong to the ‘northeast tradition’ and in it are represented the characteristics of the various evolutionary moments of this tradition.
-                     """)
+                    TextBoxView( infoType: .site, text: selectedSite.siteAbout)
                     
                     Spacer()
                 }
@@ -67,5 +60,5 @@ enum InfoType: String{
 }
 
 #Preview {
-    InfoBoardView(infoPresented: .constant(true))
+    InfoBoardView(infoPresented: .constant(true), selectedSite: Sites[0])
 }

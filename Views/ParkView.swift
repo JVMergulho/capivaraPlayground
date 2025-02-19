@@ -61,16 +61,20 @@ struct ParkView: View {
                     if (audioManager.isPlaying){
                         Image(systemName: "speaker.fill")
                             .foregroundStyle(Color.redTitle)
+                            .font(.system(size: 20))
                     } else {
                         Image(systemName: "speaker.slash.fill")
                             .foregroundStyle(Color.redTitle)
+                            .font(.system(size: 20))
                     }
                 }
                 
                 Button(action: {
                     path.append(Page.timeline)
                 }){
-                    Image("bookIcon")
+                    Image(systemName: "book.circle.fill")
+                        .foregroundStyle(Color.redTitle)
+                        .font(.system(size: 24))
                 }
             }
         }

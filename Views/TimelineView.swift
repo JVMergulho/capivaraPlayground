@@ -27,30 +27,48 @@ struct TimelineView: View {
                 VStack{
                     ParkBoardView(title: "Timeline")
                     
-                    VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading) {
                         ForEach(events) { event in
-                            HStack{
-                                Circle()
-                                    .frame()
+                            ZStack(alignment: .leading){
                                 
-                                VStack(alignment: .leading) {
-                                    Text(event.year)
-                                        .bold()
-                                        .foregroundColor(.redTitle)
-                                        .frame(width: 100, alignment: .leading)
-                                    VStack(alignment: .leading) {
-                                        Text(event.title)
-                                            .font(.headline)
-                                            .foregroundColor(.redTitle)
+                                HStack{
+                                    Rectangle()
+                                    .frame(width: 4, height: 180)
+                                    .foregroundColor(.redTitle)
+                                    
+                                    Spacer()
+                                }
+                                .padding(.top, 90)
+                                .padding(.leading, 7)
+                                
+                                //.offset(x: 8, y: 18)
+                                
+                                VStack(alignment: .leading){
+                                    HStack{
+                                        Circle()
+                                            .frame(width: 18)
+                                            .foregroundStyle(Color.redTitle)
                                         
-                                        Text(event.description)
-                                            .font(.subheadline)
-                                            .foregroundColor(.black)
-                                            .padding(.top, 8)
+                                        VStack(alignment: .leading) {
+                                            Text(event.year)
+                                                .bold()
+                                                .foregroundColor(.redTitle)
+                                                .frame(width: 100, alignment: .leading)
+                                            
+                                            Text(event.title)
+                                                .font(.headline)
+                                                .foregroundColor(.redTitle)
+                                        }
                                     }
+                                    
+                                    Text(event.description)
+                                        .font(.subheadline)
+                                        .foregroundColor(.black)
+                                        .padding(.top, 8)
+                                        .padding(.leading, 20)
                                 }
                             }
-                            .padding()
+                            .frame(height: 160)
                         }
                     }
                     .padding()

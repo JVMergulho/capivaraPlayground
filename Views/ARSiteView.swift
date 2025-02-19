@@ -43,7 +43,7 @@ struct ARSiteView: View {
             }
             
             if showInfo{
-                InfoBoardView(infoPresented: $showInfo)
+                InfoBoardView(infoPresented: $showInfo, selectedSite: selectedSite)
             }
         }
         .onChange(of: coordinator.infoSelected){

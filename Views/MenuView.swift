@@ -103,9 +103,11 @@ struct MenuView: View {
                     if (audioManager.isPlaying){
                         Image(systemName: "speaker.fill")
                             .foregroundStyle(Color.redTitle)
+                            .font(.system(size: 20))
                     } else {
                         Image(systemName: "speaker.slash.fill")
                             .foregroundStyle(Color.redTitle)
+                            .font(.system(size: 20))
                     }
                 }
             }
