@@ -10,13 +10,11 @@ import SwiftUI
 @available(iOS 17.0, *)
 struct MenuView: View {
     let screenWidth = UIScreen.main.bounds.width
-    
     @Binding var path: NavigationPath
     @State var offsetY = 0.2
     @State var showIntro = false
     @State var showButtons = true
     let animationDuration = 0.6
-    
     @EnvironmentObject var audioManager: AudioManager
     
     var body: some View {
@@ -66,13 +64,13 @@ struct MenuView: View {
                             RedButton(title: "Enter Park"){
                                 offsetY = 0
                                 showButtons = false
-                                footStepEffect?.play()
+                                audioManager.playEffect()
                             }
                             .padding(.bottom, 34)
                             
                             RedButton(title: "Credits"){
                                 path.append(Page.credits)
-                                footStepEffect?.play()
+                                audioManager.playEffect()
                             }
                         }
                         .padding(.vertical, 68)

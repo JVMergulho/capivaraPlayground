@@ -11,6 +11,7 @@ struct WarningView: View {
     @Binding var path: NavigationPath
     @Binding var showWarning: Bool
     let selectedSite: Site
+    @EnvironmentObject var audioManager: AudioManager
     
     var body: some View {
         ZStack{
@@ -47,6 +48,7 @@ struct WarningView: View {
                 RedButton(title: "Continue"){
                     path.append(Page.arSite(selectedSite))
                     showWarning = false
+                    audioManager.playEffect()
                 }
                 .padding(.bottom, 24)
             }

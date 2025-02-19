@@ -12,7 +12,8 @@ struct ARSiteView: View {
     @StateObject private var coordinator = ARCoordinator()
     @State var showInfo: Bool = false
     @State var infoWasPresented: Bool = false
-    
+    @EnvironmentObject var audioManager: AudioManager
+
     let selectedSite: Site
     
     var body: some View {
@@ -25,6 +26,7 @@ struct ARSiteView: View {
                 if coordinator.showButton{
                     RedButton(title: "Place Painting", disabled: !coordinator.enableButton){
                         coordinator.addPainting(painting: selectedSite.painting)
+                        audioManager.playEffect()
                     }
                 }
             }

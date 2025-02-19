@@ -10,6 +10,7 @@ import SwiftUI
 struct MapView: View {
     
     @Binding var selectedSite: Site?
+    @EnvironmentObject var audioManager: AudioManager
     
     var body: some View {
         GeometryReader { geometry in
@@ -23,6 +24,7 @@ struct MapView: View {
                     ForEach(Sites) { site in
                         Button(action: {
                             selectedSite = site
+                            audioManager.playEffect()
                         }, label: {
                             VStack {
                                 Image(.mapPin)

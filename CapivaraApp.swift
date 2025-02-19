@@ -9,9 +9,6 @@ struct capivaraApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(audioManager)
-                .onAppear{
-                    audioManager.setupAndPlay(filename: "birds")
-                }
         }
     }
 }

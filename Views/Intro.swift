@@ -11,6 +11,8 @@ struct IntroView: View {
     @Binding var path: NavigationPath
     @State var currentFrame = 0
     
+    @EnvironmentObject var audioManager: AudioManager
+    
     var showPrev: Bool {
         return currentFrame > 0
     }
@@ -58,7 +60,7 @@ struct IntroView: View {
                             } else {
                                 Button(action:{
                                     path.append(Page.map)
-                                    footStepEffect?.play()
+                                    audioManager.playEffect()
                                 }){
                                     Text("Continue")
                                         .font(.system(size: 20, weight: .medium))
@@ -95,14 +97,14 @@ struct IntroView: View {
     func nextFrame(){
         if currentFrame < dialogs.count - 1{
             currentFrame += 1
-            footStepEffect?.play()
+            audioManager.playEffect()
         }
     }
     
     func prevFrame(){
         if currentFrame > 0 {
             currentFrame -= 1
-            footStepEffect?.play()
+            audioManager.playEffect()
         }
     }
 }
