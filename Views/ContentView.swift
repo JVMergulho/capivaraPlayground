@@ -24,7 +24,7 @@ struct ContentView: View {
                         case .arSite(let site):
                             ARSiteView(selectedSite: site)
                         case .credits:
-                            Text("João Mergulhão")
+                            CreditsView()
                         case .menu:
                             MenuView(path: $path)
                         case .timeline:
@@ -34,6 +34,7 @@ struct ContentView: View {
                     }
                 }
         }
+        .tint(Color.redTitle)
     }
 }
 
