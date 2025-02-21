@@ -11,9 +11,15 @@ struct Reference: Hashable{
     let title: String
     let source: String
     let author: String
+    var obs: String?
 }
 
 let references: [Reference] = [
+    Reference(title: "Illustrations (capybaras, background, map)", source: "created for the APP",
+              author: "João Mergulhão (owner)"),
+    Reference(title: "Cave Painting illustrations", source: "created for the APP",
+              author: "João Mergulhão (owner)",
+              obs: "Based on public available images provided by Fundação Museu do Homem Americano (FUNDHAM)"),
     Reference(title: "Background sound", source: "https://opengameart.org/content/ambient-bird-sounds",
               author: "isaiah658"),
     Reference(title: "Footstep sound", source: "https://opengameart.org/content/nature-sounds-pack",
@@ -31,14 +37,15 @@ struct CreditsView: View {
             ScrollView{
                 VStack{
                     Text("About Me")
-                        .font(.system(size: 20, weight: .bold))
+                        .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(Color.redTitle)
                         .padding()
                     HStack{
-                        Image(.bubble3)
+                        Image(.bubble2)
                             .resizable()
+                            .scaledToFit()
                             .overlay{
-                                Text("I am **João Mergulhão**, a brazilian Computer Science student passionated about technology, art and history")
+                                Text("Hi, I am **João Mergulhão**, a brazilian Computer Science student passionated about technology, art and history")
                                     .font(.system(size: 14))
                                     .padding(.leading, 5)
                                     .padding(.trailing, 26)
@@ -53,7 +60,7 @@ struct CreditsView: View {
                     .padding(.bottom, 24)
                     
                     Text("Credits")
-                        .font(.system(size: 20, weight: .bold))
+                        .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(Color.redTitle)
                         .padding()
                     
@@ -74,14 +81,24 @@ struct CreditsView: View {
                                 
                                 HStack{
                                     Text("Source:")
+                                        .font(.system(size: 14, weight: .semibold))
                                     Spacer()
                                     Text(ref.source)
                                 }
                                 
                                 HStack{
                                     Text("Author:")
+                                        .font(.system(size: 14, weight: .semibold))
                                     Spacer()
                                     Text(ref.author)
+                                }
+                                
+                                if let obs = ref.obs{
+                                    Text("Observation:")
+                                        .font(.system(size: 14, weight: .semibold))
+                                        .padding(.top, 8)
+                                    Spacer()
+                                    Text(obs)
                                 }
                             }
                             .padding()

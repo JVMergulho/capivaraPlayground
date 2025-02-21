@@ -21,22 +21,6 @@ struct ARViewContainer: UIViewRepresentable {
         configuration.planeDetection = [.vertical, .horizontal]
         arView.session.run(configuration)
         
-        let coachingOverlay = ARCoachingOverlayView()
-        coachingOverlay.setActive(true, animated: true)
-        coachingOverlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        coachingOverlay.session = arView.session
-        coachingOverlay.translatesAutoresizingMaskIntoConstraints = false
-        coachingOverlay.goal = .anyPlane
-        coachingOverlay.delegate = coordinator
-        arView.addSubview(coachingOverlay)
-        
-        NSLayoutConstraint.activate([
-            coachingOverlay.centerXAnchor.constraint(equalTo: arView.centerXAnchor),
-            coachingOverlay.centerYAnchor.constraint(equalTo: arView.centerYAnchor),
-            coachingOverlay.widthAnchor.constraint(equalTo: arView.widthAnchor),
-            coachingOverlay.heightAnchor.constraint(equalTo: arView.heightAnchor)
-        ])
-        
         coordinator.arView = arView
         
         coordinator.setup()

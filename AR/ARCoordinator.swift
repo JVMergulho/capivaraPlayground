@@ -14,6 +14,7 @@ import UIKit
 class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrency ARCoachingOverlayViewDelegate, ObservableObject {
     
     var arView: ARView?
+    var coachingOverlay: ARCoachingOverlayView?
     @Published var enableButton: Bool = false
     @Published var showButton: Bool = true
     @Published var paintingWasPlaced: Bool = false
@@ -31,6 +32,28 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
         arView?.addGestureRecognizer(tapGesture)
         
         setupFocusIndicator()
+        setupCoachingOverlay()
+    }
+    
+    @MainActor func setupCoachingOverlay() {
+        guard let arView else { return }
+        
+        let coachingOverlay = ARCoachingOverlayView()
+        coachingOverlay.session = arView.session
+        coachingOverlay.delegate = self
+        coachingOverlay.goal = .anyPlane
+        coachingOverlay.activatesAutomatically = true
+        
+        arView.addSubview(coachingOverlay)
+        coachingOverlay.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            coachingOverlay.topAnchor.constraint(equalTo: arView.topAnchor),
+            coachingOverlay.bottomAnchor.constraint(equalTo: arView.bottomAnchor),
+            coachingOverlay.leadingAnchor.constraint(equalTo: arView.leadingAnchor),
+            coachingOverlay.trailingAnchor.constraint(equalTo: arView.trailingAnchor)
+        ])
+        
+        self.coachingOverlay = coachingOverlay
     }
     
     @MainActor func session(_ session: ARSession, didUpdate frame: ARFrame) {
@@ -203,6 +226,9 @@ class ARCoordinator: NSObject, @preconcurrency ARSessionDelegate, @preconcurrenc
             self.enableButton = false
             self.paintingWasPlaced = true
             self.disableFocus()
+            
+            self.coachingOverlay?.activatesAutomatically = false
+            self.coachingOverlay?.setActive(false, animated: true)
         }
     }
 }

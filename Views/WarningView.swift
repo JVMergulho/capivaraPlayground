@@ -37,6 +37,8 @@ struct WarningView: View {
                 
                 Text("It means that the APP is detecting a projectable plane.")
                 
+                Text("**Tip:** for a better experience go to a well-lit place ")
+                
                 Spacer()
                 
                 RedButton(title: "Continue"){
@@ -47,7 +49,7 @@ struct WarningView: View {
                 .padding(.bottom, 24)
             }
             .multilineTextAlignment(.center)
-            .font(.system(size: 20))
+            .font(.system(size: 18))
             .padding(.horizontal, 32)
         }
     }
