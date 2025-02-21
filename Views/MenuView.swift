@@ -12,9 +12,10 @@ struct MenuView: View {
     let screenWidth = UIScreen.main.bounds.width
     @Binding var path: NavigationPath
     @State var offsetY = 0.2
+    @State var offsetYClouds = 0.2
     @State var showIntro = false
     @State var showButtons = true
-    let animationDuration = 0.6
+    let animationDuration = 1.0
     @EnvironmentObject var audioManager: AudioManager
     
     var body: some View {
@@ -27,8 +28,8 @@ struct MenuView: View {
                     VStack{
                         MovingClouds()
                     }
-                    .offset(y: geometry.size.height * offsetY - 120)
-                    .animation(.easeInOut(duration: animationDuration), value: offsetY)
+                    .offset(y: geometry.size.height * offsetYClouds - 160)
+                    .animation(.easeInOut(duration: animationDuration), value: offsetYClouds)
                     
                     VStack{
                         
@@ -89,6 +90,11 @@ struct MenuView: View {
                         }
                     }
                 }
+                .onChange(of: offsetY){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration){
+                        offsetYClouds = offsetY
+                    }
+                }
                 .animation(.easeInOut(duration: 0.6), value: showIntro)
                 .onDisappear(){
                     resetMenu()
@@ -121,6 +127,7 @@ extension MenuView{
         showIntro = false
         showButtons = true
         offsetY = 0.2
+        offsetYClouds = 0.2
     }
 }
 

@@ -31,6 +31,7 @@ struct IntroView: View {
                 .overlay(){
                     VStack{
                         dialogs[currentFrame].text
+                            .animation(.easeInOut(duration: 0.2), value: currentFrame)
                             .frame(height: 180)
                         
                         HStack{
@@ -84,6 +85,7 @@ struct IntroView: View {
                         .aspectRatio(contentMode: .fit)
                         .clipped()
                         .offset(x: geometry.size.width * 0.2, y: geometry.size.height * 0.47)
+                        //.animation(.easeInOut(duration: 0.2), value: currentFrame)
                 }
                 .frame(width: geometry.size.width)
             }

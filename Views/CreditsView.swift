@@ -19,7 +19,7 @@ let references: [Reference] = [
               author: "João Mergulhão (owner)"),
     Reference(title: "Cave Painting illustrations", source: "created for the APP",
               author: "João Mergulhão (owner)",
-              obs: "Based on public available images provided by Fundação Museu do Homem Americano (FUNDHAM)"),
+              obs: "Based on public available images provided by Museum of the American Man Foundation (FUNDHAM)"),
     Reference(title: "Background sound", source: "https://opengameart.org/content/ambient-bird-sounds",
               author: "isaiah658"),
     Reference(title: "Footstep sound", source: "https://opengameart.org/content/nature-sounds-pack",
@@ -108,7 +108,7 @@ struct CreditsView: View {
                         .padding(.bottom, 12)
                     }
                 }
-                .padding()
+                .padding(.horizontal)
             }
         }
     }
