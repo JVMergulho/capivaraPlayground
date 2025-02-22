@@ -15,17 +15,24 @@ struct Reference: Hashable{
 }
 
 let references: [Reference] = [
-    Reference(title: "Illustrations (capybaras, background, map)", source: "created for the APP",
-              author: "João Mergulhão (owner)"),
-    Reference(title: "Cave Painting illustrations", source: "created for the APP",
+    Reference(title: "illustrations (character, background, icon, map)", source: "created for the APP",
               author: "João Mergulhão (owner)",
-              obs: "Based on public available images provided by Museum of the American Man Foundation (FUNDHAM)"),
+              obs: "The cave painting illustrations are based on public available images provided by Museum of the American Man Foundation (FUMDHAM)"),
     Reference(title: "Background sound", source: "https://opengameart.org/content/ambient-bird-sounds",
               author: "isaiah658"),
     Reference(title: "Footstep sound", source: "https://opengameart.org/content/nature-sounds-pack",
               author: "Antoine Gaumain"),
     Reference(title: "SF Pro Font", source: "https://developer.apple.com/fonts/",
               author: "Apple")
+]
+
+let reseachRef: [String] = [
+    "http://fumdham.org.br",
+    "https://www.smithsonianmag.com/science-nature/essential-timeline-understanding-evolution-homo-sapiens-180976807/",
+    "https://www.researchgate.net/publication/336899695",
+    "https://brasil.mongabay.com/2023/07/niede-guidon-50-anos-na-defesa-da-serra-da-capivara-maior-tesouro-rupestre-das-americas/",
+    "https://whc.unesco.org/en/documents/128814",
+    "https://whc.unesco.org/en/list/606/",
 ]
 
 struct CreditsView: View {
@@ -72,11 +79,9 @@ struct CreditsView: View {
                                         .stroke(Color.darkBrown, lineWidth: 4)
                                 )
                             VStack{
-                                HStack{
-                                    Text(ref.title)
-                                        .font(.system(size: 16, weight: .bold))
-                                    Spacer()
-                                }
+                                
+                                Text(ref.title)
+                                .font(.system(size: 16, weight: .bold))
                                 .padding(.bottom, 8)
                                 
                                 HStack{
@@ -107,6 +112,28 @@ struct CreditsView: View {
                         .foregroundStyle(Color.redTitle)
                         .padding(.bottom, 12)
                     }
+                    
+                    ZStack{
+                        Color.parkBoardBg
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.darkBrown, lineWidth: 4)
+                            )
+                        VStack{
+                            Text("Research References")
+                                .font(.system(size: 16, weight: .bold))
+                            
+                            ForEach(reseachRef, id: \.self){ ref in
+                                Text(ref)
+                                    .padding(.vertical, 4)
+                            }
+                            
+                        }
+                        .padding()
+                    }
+                    .font(.system(size: 14))
+                    .foregroundStyle(Color.redTitle)
+                    .padding(.bottom, 12)
                 }
                 .padding(.horizontal)
             }

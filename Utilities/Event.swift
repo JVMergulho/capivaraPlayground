@@ -22,9 +22,9 @@ let events: [TimelineEvent] = [
     
     TimelineEvent(year: "1973", title: "Niède Guidon's First Discoveries", description: "Archaeologist Niède Guidon begins research in Serra da Capivara. The first recorded site was Toca do Paraguaio, where two human skeletons up to 10,000 years old were found."),
     
-    TimelineEvent(year: "1986", title: "Museum of the American Man Foundation (FUNDHAM)", description: "FUNDHAM was founded as the park's administrative entity, with a strong commitment to the socio-economic and cultural development of local communities."),
+    TimelineEvent(year: "1986", title: "Museum of the American Man Foundation (FUMDHAM)", description: "FUMDHAM was founded as the park's administrative entity, with a strong commitment to the socio-economic and cultural development of local communities."),
     
     TimelineEvent(year: "1991", title: "UNESCO World Heritage Status", description: "Serra da Capivara was designated a UNESCO World Heritage Site for its historical and cultural significance."),
     
-    TimelineEvent(year: "2020+", title: "Museum of the American Man Foundation (FUNDHAM)", description: "Studies continue to explore the origins of the first inhabitants of the Americas, reassessing traditional theories.")
+    TimelineEvent(year: "2020+", title: " Ongoing Research", description: "Studies continue to explore the origins of the first inhabitants of the Americas, reassessing traditional theories.")
 ]
