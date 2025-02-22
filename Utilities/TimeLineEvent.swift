@@ -13,10 +13,10 @@ struct TimelineEvent: Identifiable {
     let description: String
 }
 
-let events: [TimelineEvent] = [
+let timeEvents: [TimelineEvent] = [
     TimelineEvent(year: "300,000 B.P.", title: "Emergence of Homo Sapiens in Africa", description: "The origins of our species trace back to Africa. The oldest known Homo sapiens skull was discovered in Morocco and dates back approximately 300,000 years."),
     
-    TimelineEvent(year: "50,000 B.P.", title: "Human Presence in Serra da Capivara", description: "Stone tools and fire pits suggest human occupation in the region far earlier than previously thought for the Americas. This has raised the theory that humans arrived via sea routes from Africa."),
+    TimelineEvent(year: "50,000 B.P.", title: "Human Presence in Serra da Capivara", description: "Archeological artifacts suggest human occupation in the region far earlier than previously thought for the Americas. This has raised the theory that humans arrived via sea routes from Africa."),
     
     TimelineEvent(year: "13,000 B.C.", title: "Clovis Culture in North America", description: "The Clovis people spread across the continent. In the 20th century, the dominant theory suggested they were the first inhabitants of the Americas, arriving from Russia via the Bering Strait."),
     

@@ -33,6 +33,7 @@ let reseachRef: [String] = [
     "https://brasil.mongabay.com/2023/07/niede-guidon-50-anos-na-defesa-da-serra-da-capivara-maior-tesouro-rupestre-das-americas/",
     "https://whc.unesco.org/en/documents/128814",
     "https://whc.unesco.org/en/list/606/",
+    "https://agenciagov.ebc.com.br/noticias/202308/primeiro-sitio-arqueologico-descoberto-na-serra-da-capivara-completa-50-anos"
 ]
 
 struct CreditsView: View {

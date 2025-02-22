@@ -52,5 +52,5 @@ struct TipView: View {
 }
 
 #Preview {
-    TipView(capivaraImage: .capivara2, text: Text("**Select a pin** to visit the archeology site!"))
+    TipView(capivaraImage: .capivara2, text: Text("**Select a pin** to visit an archeological site!"))
 }

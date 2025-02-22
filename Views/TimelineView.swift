@@ -14,10 +14,10 @@ struct TimelineView: View {
                     ParkBoardView(title: "Timeline")
                     
                     VStack(alignment: .leading) {
-                        ForEach(0..<events.count) { index in
+                        ForEach(0..<timeEvents.count) { index in
                             ZStack(alignment: .leading){
                                 
-                                if (index < events.count - 1){
+                                if (index < timeEvents.count - 1){
                                     HStack{
                                         Rectangle()
                                         .frame(width: 4, height: 180)
@@ -36,18 +36,18 @@ struct TimelineView: View {
                                             .foregroundStyle(Color.redTitle)
                                         
                                         VStack(alignment: .leading) {
-                                            Text(events[index].year)
+                                            Text(timeEvents[index].year)
                                                 .bold()
                                                 .foregroundColor(.redTitle)
                                                 .frame(alignment: .leading)
                                             
-                                            Text(events[index].title)
+                                            Text(timeEvents[index].title)
                                                 .font(.headline)
                                                 .foregroundColor(.redTitle)
                                         }
                                     }
                                     
-                                    Text(events[index].description)
+                                    Text(timeEvents[index].description)
                                         .font(.subheadline)
                                         .foregroundColor(.black)
                                         .padding(.top, 8)
