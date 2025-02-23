@@ -17,27 +17,27 @@ struct ParkView: View {
     @EnvironmentObject var audioManager: AudioManager
     
     var body: some View {
-        NavigationView{
             ZStack{
                 Color.mapBg
                     .ignoresSafeArea()
                 
-                Image(.caveTexture)
+                Image("caveTexture")
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
+                    .clipped()
                 
                 VStack{
                     
                     ParkBoardView(title: "Park Map")
-                        .padding(.top)
+                        .padding(.top, 34)
                     
                     MapView(selectedSite: $selectedSite)
-                        .padding(.horizontal)
+                        .padding(.horizontal, 80)
                     
-                    Spacer(minLength: 200)
+                    Spacer(minLength: 280)
                 }
                 
-                TipView(capivaraImage: .capivara2, text: Text("**Select a pin** to visit an archeological site!"))
+                TipView(capivaraImage: "capivara2",text: Text("**Select a pin** to visit an archeological site!"))
                 
                 if showWarning{
                     WarningView(path: $path, showWarning: $showWarning, selectedSite: selectedSite!)
@@ -52,8 +52,7 @@ struct ParkView: View {
                 }
             }
             .animation(.easeInOut(duration: 0.4), value: showWarning)
-        }
-        .toolbar(){
+            .toolbar(){
             if !showWarning{
                 ToolbarItemGroup(){
                     Button(action: {
@@ -62,11 +61,11 @@ struct ParkView: View {
                         if (audioManager.isPlaying){
                             Image(systemName: "speaker.fill")
                                 .foregroundStyle(Color.redTitle)
-                                .font(.system(size: 20))
+                                .font(.system(size: 28))
                         } else {
                             Image(systemName: "speaker.slash.fill")
                                 .foregroundStyle(Color.redTitle)
-                                .font(.system(size: 20))
+                                .font(.system(size: 28))
                         }
                     }
                     
@@ -75,7 +74,7 @@ struct ParkView: View {
                     }){
                         Image(systemName: "book.circle.fill")
                             .foregroundStyle(Color.redTitle)
-                            .font(.system(size: 24))
+                            .font(.system(size: 28))
                     }
                 }
             } else {

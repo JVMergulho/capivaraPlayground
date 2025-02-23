@@ -27,10 +27,10 @@ struct InfoBoardView: View {
                         Button(action:{
                             infoPresented = false
                         }){
-                            Image(.closeIcon)
+                            Image("closeIcon")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 30)
+                                .frame(width: 40)
                                 .foregroundStyle(Color.redTitle)
                         }
                     }
@@ -48,7 +48,7 @@ struct InfoBoardView: View {
                 }
             }
             .padding(.top, 16)
-            .padding(.horizontal, 48)
+            .padding(.horizontal, 80)
             .scrollIndicators(.hidden)
         }
     }
@@ -60,5 +60,5 @@ enum InfoType: String{
 }
 
 #Preview {
-    InfoBoardView(infoPresented: .constant(true), selectedSite: Sites[0])
+    InfoBoardView(infoPresented: .constant(true), selectedSite: Sites[1])
 }

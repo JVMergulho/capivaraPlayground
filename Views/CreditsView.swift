@@ -44,30 +44,37 @@ struct CreditsView: View {
             
             ScrollView{
                 VStack{
-                    Text("About Me")
+                    Text("ABOUT ME")
                         .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(Color.redTitle)
                         .padding()
                     HStack{
-                        Image(.bubble2)
+                        Spacer()
+                        
+                        Image("bubble2")
                             .resizable()
                             .scaledToFit()
+                            .frame(width: 310)
                             .overlay{
                                 Text("Hi, I am **João Mergulhão**, a brazilian Computer Science student passionated about technology, art and history")
-                                    .font(.system(size: 14))
-                                    .padding(.leading, 5)
-                                    .padding(.trailing, 26)
+                                    .font(.system(size: 18))
+                                    .padding(.leading, 10)
+                                    .padding(.trailing, 38)
                                     .multilineTextAlignment(.center)
                             }
+                        
+                        
                         
                         Image("myself")
                             .resizable()
                             .scaledToFit()
                             .frame(maxHeight: 160)
+                        
+                        Spacer()
                     }
                     .padding(.bottom, 24)
                     
-                    Text("Credits")
+                    Text("CREDITS")
                         .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(Color.redTitle)
                         .padding()
@@ -82,7 +89,7 @@ struct CreditsView: View {
                             VStack{
                                 
                                 Text(ref.title)
-                                .font(.system(size: 16, weight: .bold))
+                                .font(.system(size: 18, weight: .bold))
                                 .padding(.bottom, 8)
                                 
                                 HStack{
@@ -108,8 +115,9 @@ struct CreditsView: View {
                                 }
                             }
                             .padding()
+                            .padding(.horizontal, 20)
                         }
-                        .font(.system(size: 14))
+                        .font(.system(size: 16))
                         .foregroundStyle(Color.redTitle)
                         .padding(.bottom, 12)
                     }
@@ -131,12 +139,13 @@ struct CreditsView: View {
                             
                         }
                         .padding()
+                        .padding(.horizontal, 20)
                     }
                     .font(.system(size: 14))
                     .foregroundStyle(Color.redTitle)
                     .padding(.bottom, 12)
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 80)
             }
         }
     }

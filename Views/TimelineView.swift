@@ -20,19 +20,19 @@ struct TimelineView: View {
                                 if (index < timeEvents.count - 1){
                                     HStack{
                                         Rectangle()
-                                        .frame(width: 4, height: 180)
+                                        .frame(width: 4, height: 190)
                                         .foregroundColor(.redTitle)
                                         
                                         Spacer()
                                     }
                                     .padding(.top, 80)
-                                    .padding(.leading, 7)
+                                    .padding(.leading, 8)
                                 }
                                 
                                 VStack(alignment: .leading){
                                     HStack{
                                         Circle()
-                                            .frame(width: 18)
+                                            .frame(width: 20)
                                             .foregroundStyle(Color.redTitle)
                                         
                                         VStack(alignment: .leading) {
@@ -42,22 +42,24 @@ struct TimelineView: View {
                                                 .frame(alignment: .leading)
                                             
                                             Text(timeEvents[index].title)
-                                                .font(.headline)
                                                 .foregroundColor(.redTitle)
                                         }
+                                        .padding(.leading, 10)
                                     }
+                                    .font(.system(size: 22))
                                     
                                     Text(timeEvents[index].description)
-                                        .font(.subheadline)
                                         .foregroundColor(.black)
                                         .padding(.top, 8)
-                                        .padding(.leading, 20)
+                                        .padding(.leading, 38)
                                 }
+                                .font(.system(size: 20))
                             }
                             .frame(height: 160)
                         }
                     }
                     .padding()
+                    .padding(.horizontal, 80)
                 }
             }
             .scrollIndicators(.hidden)

@@ -30,16 +30,16 @@ struct ARSiteView: View {
                     }
                 }
             }
-            .padding(.bottom, 24)
+            .padding(.bottom, 120)
             
             if coordinator.showFocusSquare{
-                Image(.focusSquare)
+                Image("focusSquare")
                     .resizable()
-                    .frame(width: 120, height: 120)
+                    .frame(width: 180, height: 180)
             }
             
             if coordinator.paintingWasPlaced && !infoWasPresented{
-                TipView(capivaraImage: .capivara3, text: Text("**Tap in the yellow board** to get more information about this site!"))
+                TipView(capivaraImage: "capivara3", text: Text("**Tap in the yellow board** to get more information about this site!"))
             }
             
             if showInfo{

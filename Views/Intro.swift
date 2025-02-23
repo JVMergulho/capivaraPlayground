@@ -1,10 +1,3 @@
-//
-//  Intro.swift
-//  capivARa
-//
-//  Created by João Vitor Lima Mergulhão on 09/02/25.
-//
-
 import SwiftUI
 
 struct IntroView: View {
@@ -22,110 +15,103 @@ struct IntroView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            let screenWidth = geometry.size.width
+            let screenHeight = geometry.size.height
+            
             ZStack {
+                // Balão de fala
                 
-                Image(.bubble1)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 340)
-                .overlay(){
-                    VStack{
-                        dialogs[currentFrame].text
-                            .animation(.easeInOut(duration: 0.2), value: currentFrame)
-                            .frame(height: 180)
-                        
-                        HStack{
-                            if showPrev{
-                                Button(action: {
-                                    prevFrame()
-                                }){
-                                    Image(systemName: "arrowshape.left.fill")
-                                        .resizable()
-                                        .frame(width: 22, height: 22)
-                                        .foregroundStyle(Color.redTitle)
-                                }
-                            }
-                            
-                            Spacer()
-                            
-                            if showNext{
-                                Button(action: {
-                                    nextFrame()
-                                }){
-                                    Image(systemName: "arrowshape.right.fill")
-                                        .resizable()
-                                        .frame(width: 22, height: 22)
-                                        .foregroundStyle(Color.redTitle)
-                                        
-                                }
-                            } else {
-                                Button(action:{
-                                    path.append(Page.map)
-                                    audioManager.playEffect()
-                                }){
-                                    Text("Continue")
-                                        .font(.system(size: 20, weight: .medium))
-                                        .foregroundStyle(.white)
-                                        .frame(width: 110, height: 42)
-                                        .background( Color.redTitle)
-                                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                                }
-                            }
-                        }
-                        .frame(height: 40)
-                        .padding(.bottom, 80)
-                    }
-                    .frame(width: 300, height: 180)
-                }
-                .padding(.top, 60)
-
-                HStack {
-                    Image(dialogs[currentFrame].image)
+                VStack{
+                    Image("bubble1")
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .clipped()
-                        .offset(x: geometry.size.width * 0.2, y: geometry.size.height * 0.47)
-                        //.animation(.easeInOut(duration: 0.2), value: currentFrame)
+                        .scaledToFit()
+                        .frame(width: screenWidth * 0.5) // Ajustado para iPad
+                        .overlay {
+                            VStack {
+                                dialogs[currentFrame].text
+                                    .font(.system(size: 22))
+                                    .animation(.easeInOut(duration: 0.2), value: currentFrame)
+                                    .frame(height: 240)
+                                    .padding(.horizontal, 8)
+                                
+                                HStack {
+                                    if showPrev {
+                                        Button(action: {
+                                            prevFrame()
+                                        }) {
+                                            Image(systemName: "arrowshape.left.fill")
+                                                .resizable()
+                                                .frame(width: 32, height: 32)
+                                                .foregroundStyle(Color.redTitle)
+                                        }
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    if showNext {
+                                        Button(action: {
+                                            nextFrame()
+                                        }) {
+                                            Image(systemName: "arrowshape.right.fill")
+                                                .resizable()
+                                                .frame(width: 32, height: 32)
+                                                .foregroundStyle(Color.redTitle)
+                                        }
+                                    } else {
+                                        Button(action: {
+                                            path.append(Page.map)
+                                            audioManager.playEffect()
+                                        }) {
+                                            Text("Continue")
+                                                .font(.system(size: 24, weight: .medium))
+                                                .foregroundStyle(.white)
+                                                .frame(width: 130, height: 50)
+                                                .background(Color.redTitle)
+                                                .clipShape(RoundedRectangle(cornerRadius: 16))
+                                        }
+                                    }
+                                }
+                                .frame(height: 50)
+                                .padding(.bottom, 100)
+                            }
+                            .frame(width: screenWidth * 0.45, height: 200)
+                        }
+                        .padding(.top, 250)
+                    
+                    Spacer()
                 }
-                .frame(width: geometry.size.width)
+                
+                // Personagem
+                Image(dialogs[currentFrame].image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: screenWidth * 0.6) // Ajustado para iPad
+                    .offset(y: screenHeight * 0.23)
+                    .offset(x: screenWidth * 0.15)
+                    //.clipped()
             }
-            .onDisappear(){
+            .frame(width: screenWidth, height: screenHeight)
+            .onDisappear {
                 currentFrame = 0
             }
         }
         .ignoresSafeArea()
     }
     
-    func nextFrame(){
-        if currentFrame < dialogs.count - 1{
+    func nextFrame() {
+        if currentFrame < dialogs.count - 1 {
             currentFrame += 1
             audioManager.playEffect()
         }
     }
     
-    func prevFrame(){
+    func prevFrame() {
         if currentFrame > 0 {
             currentFrame -= 1
             audioManager.playEffect()
         }
     }
 }
-
-//extension IntroView{
-//    
-//    func typeWriter(at position: Int = 0) {
-//        let text = dialogs[currentFrame].text
-//        guard position < text.count else { return }
-//        
-//        let index = text.index(text.startIndex, offsetBy: position)
-//        
-//        self.dialogText += String(text[index])
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.015) {
-//            typeWriter(at: position + 1)
-//        }
-//    }
-//}
 
 #Preview {
     IntroView(path: .constant(NavigationPath()))

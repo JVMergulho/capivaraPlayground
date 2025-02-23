@@ -12,19 +12,19 @@ struct MovingClouds: View {
     @State private var offset1: CGFloat = 0
     @State private var offset2: CGFloat = UIScreen.main.bounds.width
     
-    let speed: CGFloat = 0.7
+    let speed: CGFloat = 1
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack {
             ZStack {
-                Image(.clouds)
+                Image("clouds")
                     .resizable()
                     .scaledToFit()
                     .frame(width: screenWidth)
                     .offset(x: offset1, y: 0)
                 
-                Image(.clouds)
+                Image("clouds")
                     .resizable()
                     .scaledToFit()
                     .frame(width: screenWidth)

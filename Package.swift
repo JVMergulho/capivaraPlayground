@@ -10,7 +10,7 @@ import AppleProductTypes
 let package = Package(
     name: "capivARa",
     platforms: [
-        .iOS("16.0")
+        .iOS("17.0")
     ],
     products: [
         .iOSApplication(
@@ -42,7 +42,9 @@ let package = Package(
         .executableTarget(
             name: "AppModule",
             path: ".",
-            resources: [.process("Audios")]
+            resources: [
+                .process("Audios")
+            ]
         )
     ],
     swiftLanguageVersions: [.version("6")]

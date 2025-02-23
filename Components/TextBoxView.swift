@@ -22,14 +22,15 @@ struct TextBoxView: View {
                     .padding(.top, 16)
                 
                 if infoType == .painting {
-                    Image(.curveLine)
+                    Image("curveLine")
                 } else {
-                    Image(.straightLine)
+                    Image("straightLine")
                 }
                 
                 Text(text)
                 .multilineTextAlignment(.center)
-                .padding(.bottom, 16)
+                .padding(.bottom, 20)
+                .padding(.top, 8)
             }
             .padding(.horizontal, 16)
         }

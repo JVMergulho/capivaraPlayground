@@ -35,6 +35,7 @@ struct ContentView: View {
                 }
         }
         .tint(Color.redTitle)
+        .font(.system(size: 18))
     }
 }
 

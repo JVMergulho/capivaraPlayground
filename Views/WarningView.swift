@@ -18,22 +18,24 @@ struct WarningView: View {
             Color.mapBg
                 .ignoresSafeArea()
             
-            VStack(spacing: 28){
+            VStack(spacing: 48){
+                
+                Spacer()
                 
                 HStack{
                     Text("**Augmented Reality Experience**")
-                        .font(.system(size: 24))
+                        .font(.system(size: 32))
                 }
-                .padding(.vertical, 16)
+                .padding(.bottom, 32)
                 
                 Text("You will visualize a cave painting located in the site you chose projected in a horizontal or vertical plane.")
                 
                 Text("However, you are only able to place the painting when this symbol is appearing:")
                 
-                Image(.target)
+                Image("target")
                     .resizable()
                     .scaledToFit()
-                    .frame(maxWidth: 160)
+                    .frame(maxWidth: 200)
                 
                 Text("It means that the APP is detecting a projectable plane.")
                 
@@ -46,11 +48,11 @@ struct WarningView: View {
                     showWarning = false
                     audioManager.playEffect()
                 }
-                .padding(.bottom, 24)
             }
             .multilineTextAlignment(.center)
-            .font(.system(size: 18))
-            .padding(.horizontal, 32)
+            .font(.system(size: 20))
+            .padding(.horizontal, 180)
+            .padding(.bottom, 120)
         }
     }
 }

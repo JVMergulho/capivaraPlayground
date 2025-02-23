@@ -17,7 +17,7 @@ struct MapView: View {
             VStack {
                 ZStack {
                     
-                    Image(.mapCapivara)
+                    Image("mapCapivara")
                         .resizable()
                         .scaledToFit()
                     
@@ -27,14 +27,14 @@ struct MapView: View {
                             audioManager.playEffect()
                         }, label: {
                             VStack {
-                                Image(.mapPin)
+                                Image("mapPin")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 20)
+                                    .frame(width: 30)
                                     .foregroundColor(.red)
                                 
                                 Text(site.name)
-                                    .font(.caption)
+                                    .font(.title3)
                                     .foregroundStyle(.black)
                                     .padding(5)
                                     .background(Color.white.opacity(0.6))

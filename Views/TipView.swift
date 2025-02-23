@@ -9,48 +9,48 @@ import SwiftUI
 
 struct TipView: View {
     
-    let capivaraImage: ImageResource
+    let capivaraImage: String
     let text: Text
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack{
-                
-                VStack{
+            let screenWidth = geometry.size.width
+            let screenHeight = geometry.size.height
+            
+            ZStack {
+                VStack {
                     Spacer()
                     
-                    HStack{
-                        Image(.bubble2)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .clipped()
-                            .frame(width: 208)
-                            .overlay(){
-                                text
-                                    .padding(.trailing, 26)
-                                    .padding(.leading, 4)
-                                    .multilineTextAlignment(.center)
-                            }
-                        
-                        Spacer()
-                    }
+                    Image("bubble2")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: screenWidth * 0.35)
+                        .overlay {
+                            text
+                                .padding(.trailing, 34)
+                                .font(.system(size: 24))
+                                .multilineTextAlignment(.center)
+                        }
                 }
-                .padding(.bottom, 70)
-                .padding(.leading, 20)
+                .padding(.bottom, screenHeight * 0.08)
+                .padding(.trailing, screenWidth * 0.1)
                 
-                HStack{
+                // Capivara
+                HStack {
+                    Spacer()
+                    
                     Image(capivaraImage)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .clipped()
-                        .frame(width: 260)
-                        .offset(x: geometry.size.width * 0.3, y: geometry.size.height * 0.45)
+                        .frame(width: screenWidth * 0.35) // Ajustado para iPad
+                        .offset(y: screenHeight * 0.42)
                 }
             }
+            .padding(.trailing, 80)
         }
     }
 }
 
 #Preview {
-    TipView(capivaraImage: .capivara2, text: Text("**Select a pin** to visit an archeological site!"))
+    TipView(capivaraImage: "capivara2", text: Text("**Select a pin** to visit an archeological site!"))
 }

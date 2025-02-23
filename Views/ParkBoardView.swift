@@ -15,39 +15,39 @@ struct ParkBoardView: View {
             Color.parkBoardBg
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.darkBrown, lineWidth: 6)
+                        .stroke(Color.darkBrown, lineWidth: 8)
                 )
             VStack{
-                HStack{
-                    Image(.brazil)
+                HStack(spacing: 32){
+                    Image("brazil")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 24)
+                        .frame(height: 30)
 
                     Text(title)
-                        .font(.system(size: 30, weight: .bold))
+                        .font(.system(size: 34, weight: .bold))
                         .padding(.horizontal)
                     
-                    Image(.serraLogo)
+                    Image("serraLogo")
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 24)
+                        .frame(height: 30)
                 }
-                .padding(.bottom, 2)
+                .padding(.bottom, 8)
                 
                 Rectangle()
-                    .frame(width: 260)
+                    .frame(width: 480)
                     .frame(height: 2)
-                    .padding(.bottom, 2)
+                    .padding(.bottom, 8)
                 
                 Text("Serra da Capivara National Park")
-                    .font(.system(size: 20, weight: .semibold))
+                    .font(.system(size: 24, weight: .semibold))
                     .padding(.bottom, 2)
             }
             .foregroundStyle(Color.greenTitle)
         }
-        .frame(height: 108)
-        .padding(.horizontal, 20)
+        .frame(height: 140)
+        .padding(.horizontal, 80)
     }
 }
 

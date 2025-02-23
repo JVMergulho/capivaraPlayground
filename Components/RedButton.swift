@@ -23,9 +23,9 @@ struct RedButton: View {
             buttonAction()
         }){
             Text(title)
-                .font(.system(size: 20, weight: .medium))
+                .font(.system(size: 24, weight: .medium))
                 .foregroundStyle(.white)
-                .frame(width: 180, height: 60)
+                .frame(width: 280, height: 60)
                 .background(disabled ? Color.redDisabled : Color.redTitle)
                 .clipShape(RoundedRectangle(cornerRadius: 16))
         }
