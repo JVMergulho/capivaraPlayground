@@ -58,7 +58,7 @@ struct TimelineView: View {
                             .frame(height: 160)
                         }
                     }
-                    .padding()
+                    .padding(.top, 44)
                     .padding(.horizontal, 80)
                 }
             }

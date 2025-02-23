@@ -13,6 +13,8 @@ struct ARSiteView: View {
     @State var showInfo: Bool = false
     @State var infoWasPresented: Bool = false
     @EnvironmentObject var audioManager: AudioManager
+    
+    @Binding var path: NavigationPath
 
     let selectedSite: Site
     
@@ -39,7 +41,7 @@ struct ARSiteView: View {
             }
             
             if coordinator.paintingWasPlaced && !infoWasPresented{
-                TipView(capivaraImage: "capivara3", text: Text("**Tap in the yellow board** to get more information about this site!"))
+                TipView(capivaraImage: "capivara3", text: Text("**Tap in the yellow board** to get more information about this site!"), path: $path)
             }
             
             if showInfo{

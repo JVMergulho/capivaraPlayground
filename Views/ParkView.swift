@@ -11,6 +11,7 @@ import SwiftUI
 struct ParkView: View {
     @State var selectedSite: Site?
     @State var showWarning = false
+    @State var showTimeButton = false
     
     @Binding var path: NavigationPath
     
@@ -37,7 +38,11 @@ struct ParkView: View {
                     Spacer(minLength: 280)
                 }
                 
-                TipView(capivaraImage: "capivara2",text: Text("**Select a pin** to visit an archeological site!"))
+                if showTimeButton{
+                    TipView(capivaraImage: "capivara2", path: $path, showButton: true)
+                } else {
+                    TipView(capivaraImage: "capivara2",text: Text("**Select a pin** to visit an archeological site!"), path: $path)
+                }
                 
                 if showWarning{
                     WarningView(path: $path, showWarning: $showWarning, selectedSite: selectedSite!)
@@ -49,6 +54,7 @@ struct ParkView: View {
             .onChange(of: selectedSite){
                 if selectedSite != nil{
                     showWarning.toggle()
+                    showTimeButton.toggle()
                 }
             }
             .animation(.easeInOut(duration: 0.4), value: showWarning)
@@ -84,6 +90,7 @@ struct ParkView: View {
                     }){
                         Text("Cancel")
                             .foregroundStyle(Color.redTitle)
+                            .font(.system(size: 28))
                     }
                 }
             }

@@ -22,7 +22,7 @@ struct ContentView: View {
                         case .map:
                             ParkView(path: $path)
                         case .arSite(let site):
-                            ARSiteView(selectedSite: site)
+                            ARSiteView(path: $path, selectedSite: site)
                         case .credits:
                             CreditsView()
                         case .menu:
@@ -35,7 +35,6 @@ struct ContentView: View {
                 }
         }
         .tint(Color.redTitle)
-        .font(.system(size: 18))
     }
 }
 

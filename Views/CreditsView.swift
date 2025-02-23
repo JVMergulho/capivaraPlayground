@@ -47,7 +47,7 @@ struct CreditsView: View {
                     Text("ABOUT ME")
                         .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(Color.redTitle)
-                        .padding()
+                        .padding(.vertical, 24)
                     HStack{
                         Spacer()
                         
@@ -72,12 +72,12 @@ struct CreditsView: View {
                         
                         Spacer()
                     }
-                    .padding(.bottom, 24)
+                    .padding(.bottom, 44)
                     
                     Text("CREDITS")
                         .font(.system(size: 24, weight: .bold))
                         .foregroundStyle(Color.redTitle)
-                        .padding()
+                        .padding(.vertical, 24)
                     
                     ForEach(references, id: \.self){ ref in
                         ZStack{
