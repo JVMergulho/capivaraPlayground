@@ -18,7 +18,7 @@ let timeEvents: [TimelineEvent] = [
     
     TimelineEvent(year: "50,000 B.P.", title: "Human Presence in Serra da Capivara", description: "Archeological artifacts suggest human occupation in the region far earlier than previously thought for the Americas. This has raised the theory that humans arrived via sea routes from Africa."),
     
-    TimelineEvent(year: "13,000 B.C.", title: "Clovis Culture in North America", description: "The Clovis people spread across the continent. In the 20th century, the dominant theory suggested they were the first inhabitants of the Americas, arriving from Russia via the Bering Strait."),
+    TimelineEvent(year: "13,000 B.P.", title: "Clovis Culture in North America", description: "The Clovis people spread across the continent. In the 20th century, the dominant theory suggested they were the first inhabitants of the Americas, arriving from Russia via the Bering Strait."),
     
     TimelineEvent(year: "1973", title: "Niède Guidon's First Discoveries", description: "Archaeologist Niède Guidon begins research in Serra da Capivara. The first recorded site was Toca do Paraguaio."),
     

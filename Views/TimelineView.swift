@@ -64,6 +64,7 @@ struct TimelineView: View {
             }
             .scrollIndicators(.hidden)
         }
+        .foregroundStyle(Color.black)
     }
 }
 

@@ -30,6 +30,7 @@ struct IntroView: View {
                             VStack {
                                 dialogs[currentFrame].text
                                     .font(.system(size: 22))
+                                    .foregroundStyle(Color.black)
                                     .animation(.easeInOut(duration: 0.2), value: currentFrame)
                                     .frame(height: 240)
                                     .padding(.horizontal, 8)

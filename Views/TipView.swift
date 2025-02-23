@@ -63,7 +63,8 @@ struct TipView: View {
                                 .padding(.trailing, 34)
                             } else {
                                 text
-                                    .padding(.trailing, 34)
+                                    .padding(.leading, 12)
+                                    .padding(.trailing, 40)
                                     .font(.system(size: 24))
                                     .multilineTextAlignment(.center)
                             }
@@ -83,6 +84,7 @@ struct TipView: View {
                         .offset(y: screenHeight * 0.42)
                 }
             }
+            .foregroundStyle(Color.black)
             .padding(.trailing, 80)
         }
     }

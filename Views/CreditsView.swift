@@ -59,6 +59,7 @@ struct CreditsView: View {
                             .overlay{
                                 Text("Hi, I am **João Mergulhão**, a brazilian Computer Science student passionated about technology, art and history")
                                     .font(.system(size: 18))
+                                    .foregroundStyle(Color.black)
                                     .padding(.leading, 10)
                                     .padding(.trailing, 38)
                                     .multilineTextAlignment(.center)

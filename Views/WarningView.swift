@@ -74,6 +74,7 @@ struct WarningView: View {
             .padding(.horizontal, 180)
             .padding(.bottom, 120)
         }
+        .foregroundStyle(Color.black)
         .toolbar{
             ToolbarItem(placement: .principal) {
                 Text("")

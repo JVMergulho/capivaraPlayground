@@ -41,7 +41,7 @@ struct ARSiteView: View {
             }
             
             if coordinator.paintingWasPlaced && !infoWasPresented{
-                TipView(capivaraImage: "capivara3", text: Text("**Tap in the yellow board** to get more information about this site!"), path: $path)
+                TipView(capivaraImage: "capivara3", text: Text("**Tap in the yellow sign** to get more information about this site!"), path: $path)
             }
             
             if showInfo{

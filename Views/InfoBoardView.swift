@@ -51,6 +51,7 @@ struct InfoBoardView: View {
             .padding(.horizontal, 80)
             .scrollIndicators(.hidden)
         }
+        .foregroundStyle(Color.black)
     }
 }
 
@@ -60,5 +61,5 @@ enum InfoType: String{
 }
 
 #Preview {
-    InfoBoardView(infoPresented: .constant(true), selectedSite: Sites[1])
+    InfoBoardView(infoPresented: .constant(true), selectedSite: Sites[2])
 }

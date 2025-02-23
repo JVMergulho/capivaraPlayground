@@ -54,7 +54,7 @@ struct ParkView: View {
             .onChange(of: selectedSite){
                 if selectedSite != nil{
                     showWarning.toggle()
-                    showTimeButton.toggle()
+                    showTimeButton = true
                 }
             }
             .animation(.easeInOut(duration: 0.4), value: showWarning)

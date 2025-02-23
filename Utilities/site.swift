@@ -41,7 +41,7 @@ let Sites: [Site] = [
         painting: "painting2",
         location: CGPoint(x: 0.71, y: 0.74),
         siteAbout: "The Toca do Paraguaio is a rock shelter 420 meters above sea level and contains over 900 cave paintings, as well as other archaeological remains, such as ceramic fragments. It was the first site studied by Niède Guidon where she found two skeletons with distinct features, dating back to 9 to 10 thousand years ago, suggesting multiple migrations to the Americas. The site is crucial for understanding prehistoric human occupation in the continent.",
-        paintingAbout: "The cave paintings of Toca do Paraguai has a strongly narrative character, featuring motifs that depict everyday scenes and hybrid figures, resulting from the fusion of different themes. A striking example is this painting, which combines characteristic features of deer and rheas. It is theorized that these figures represent characters from the mythical-religious universe of their creators.",
+        paintingAbout: "The cave paintings of Toca do Paraguaio has a strongly narrative character, featuring motifs that depict everyday scenes and hybrid figures, resulting from the fusion of different themes. A striking example is this painting, which combines characteristic features of deers and rheas. It is theorized that these figures represent characters from the mythical-religious universe of their creators.",
         infoBoard: "infoParaguaio"
     )
 ]
