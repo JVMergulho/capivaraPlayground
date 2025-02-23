@@ -43,16 +43,41 @@ struct WarningView: View {
                 
                 Spacer()
                 
-                RedButton(title: "Continue"){
-                    path.append(Page.arSite(selectedSite))
-                    showWarning = false
-                    audioManager.playEffect()
+                HStack{
+                    Button(action: {
+                        showWarning = false
+                        audioManager.playEffect()
+                    }){
+                        Text("Cancel")
+                            .foregroundStyle(Color.redTitle)
+                            .font(.system(size: 24))
+                    }
+                    .frame(width: 180)
+                    .padding(.trailing, 40)
+                    
+                    Button(action:{
+                        path.append(Page.arSite(selectedSite))
+                        showWarning = false
+                        audioManager.playEffect()
+                    }){
+                        Text("Continue")
+                            .font(.system(size: 24, weight: .medium))
+                            .foregroundStyle(.white)
+                            .frame(width: 180, height: 60)
+                            .background(Color.redTitle)
+                            .clipShape(RoundedRectangle(cornerRadius: 16))
+                    }
                 }
             }
             .multilineTextAlignment(.center)
-            .font(.system(size: 20))
+            .font(.system(size: 22))
             .padding(.horizontal, 180)
             .padding(.bottom, 120)
+        }
+        .toolbar{
+            ToolbarItem(placement: .principal) {
+                Text("")
+            }
         }
     }
 }

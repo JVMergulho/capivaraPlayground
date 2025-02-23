@@ -35,7 +35,7 @@ struct ParkView: View {
                     MapView(selectedSite: $selectedSite)
                         .padding(.horizontal, 80)
                     
-                    Spacer(minLength: 280)
+                    Spacer(minLength: 270)
                 }
                 
                 if showTimeButton{
@@ -59,42 +59,35 @@ struct ParkView: View {
             }
             .animation(.easeInOut(duration: 0.4), value: showWarning)
             .toolbar(){
-            if !showWarning{
-                ToolbarItemGroup(){
-                    Button(action: {
-                        audioManager.toggle()
-                    }){
-                        if (audioManager.isPlaying){
-                            Image(systemName: "speaker.fill")
-                                .foregroundStyle(Color.redTitle)
-                                .font(.system(size: 28))
-                        } else {
-                            Image(systemName: "speaker.slash.fill")
-                                .foregroundStyle(Color.redTitle)
-                                .font(.system(size: 28))
-                        }
+                if !showWarning{
+                    
+                    ToolbarItem(placement: .principal) {
+                        Text("")
                     }
                     
-                    Button(action: {
-                        path.append(Page.timeline)
-                    }){
-                        Image(systemName: "book.circle.fill")
-                            .foregroundStyle(Color.redTitle)
-                            .font(.system(size: 28))
+                    ToolbarItemGroup(){
+                        
+                        Button(action: {
+                            audioManager.toggle()
+                        }){
+                            Image(systemName: audioManager.isPlaying ? "speaker.fill" : "speaker.slash.fill")
+                                .foregroundStyle(Color.redTitle)
+                                .font(.system(size: 24))
+                        }
+                        
+                        Button(action: {
+                            audioManager.playEffect()
+                            path.append(Page.timeline)
+                        }){
+                            Image(systemName: "book.circle.fill")
+                                .foregroundStyle(Color.redTitle)
+                                .font(.system(size: 24))
+                        }
                     }
                 }
-            } else {
-                ToolbarItemGroup(placement: .topBarLeading){
-                    Button(action: {
-                        showWarning = false
-                    }){
-                        Text("Cancel")
-                            .foregroundStyle(Color.redTitle)
-                            .font(.system(size: 28))
-                    }
-                }
-            }
         }
+        .navigationTitle("Map")
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(showWarning)
     }
 }

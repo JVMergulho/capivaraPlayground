@@ -12,6 +12,13 @@ struct ContentView: View {
     
     @State var path = NavigationPath()
     
+//    init() {
+//        let attributes: [NSAttributedString.Key: Any] = [
+//            .font: UIFont.systemFont(ofSize: 22, weight: .medium)
+//        ]
+//        UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal)
+//    }
+    
     var body: some View {
         NavigationStack(path: $path){
             

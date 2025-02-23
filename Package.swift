@@ -31,7 +31,7 @@ let package = Package(
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
             ],
             capabilities: [
-                .camera(purposeString: "WE need to acces the camera to enable the AR session")
+                .camera(purposeString: "The APP needs to access the camera to enable the AR functionalities")
             ],
             appCategory: .education
         )

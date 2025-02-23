@@ -94,16 +94,22 @@ struct MenuView: View {
                 }
             }
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("")
+                }
+                
                 ToolbarItemGroup {
                     Button(action: {
                         audioManager.toggle()
                     }) {
                         Image(systemName: audioManager.isPlaying ? "speaker.fill" : "speaker.slash.fill")
                             .foregroundStyle(Color.redTitle)
-                            .font(.system(size: 28))
+                            .font(.system(size: 24))
                     }
                 }
             }
+            .navigationTitle("Menu")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 

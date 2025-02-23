@@ -14,6 +14,8 @@ struct TipView: View {
     let showButton: Bool
     @Binding var path: NavigationPath
     
+    @EnvironmentObject var audioManager: AudioManager
+    
     init(capivaraImage: String, text: Text = Text(""), path: Binding<NavigationPath>, showButton: Bool = false) {
         self.capivaraImage = capivaraImage
         self.text = text
@@ -44,6 +46,7 @@ struct TipView: View {
                                     
                                     Button(action: {
                                         path.append(Page.timeline)
+                                        audioManager.playEffect()
                                     }) {
                                         HStack{
                                             Text("Timeline")
